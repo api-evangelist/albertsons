@@ -1,0 +1,81 @@
+openapi: 3.1.0
+info:
+  title: Albertsons Media Collective API
+  description: >-
+    The Albertsons Media Collective API enables advertisers to integrate with
+    Albertsons retail media network for campaign management and performance
+    analytics. The API provides near-real-time access to campaign performance
+    data, allowing advertisers to bring data into their own measurement
+    models for analysis.
+  version: '1.0'
+servers:
+  - url: https://api.albertsons.com
+tags:
+  - name: Campaigns
+    description: Manage advertising campaigns on the Albertsons Media Collective.
+  - name: Performance
+    description: Access campaign performance metrics and analytics.
+  - name: Audiences
+    description: Manage audience targeting segments.
+paths:
+  /campaigns:
+    get:
+      operationId: listCampaigns
+      summary: List campaigns
+      description: >-
+        Retrieves a list of advertising campaigns configured on the
+        Albertsons Media Collective platform with status, budget, and
+        targeting details.
+      tags:
+        - Campaigns
+      responses:
+        '200':
+          description: Success
+  /performance:
+    get:
+      operationId: listPerformanceMetrics
+      summary: List performance metrics
+      description: >-
+        Retrieves near-real-time performance metrics for active and
+        completed advertising campaigns, including impressions, clicks,
+        conversions, and return on ad spend.
+      tags:
+        - Performance
+      parameters:
+        - name: campaignId
+          in: query
+          description: Filter metrics by campaign identifier.
+          schema:
+            type: string
+        - name: startDate
+          in: query
+          description: Start date for metrics window (ISO 8601).
+          schema:
+            type: string
+            format: date
+        - name: endDate
+          in: query
+          description: End date for metrics window (ISO 8601).
+          schema:
+            type: string
+            format: date
+      responses:
+        '200':
+          description: Success
+  /audiences:
+    get:
+      operationId: listAudiences
+      summary: List audiences
+      description: >-
+        Retrieves a list of audience segments available for campaign
+        targeting on the Albertsons Media Collective.
+      tags:
+        - Audiences
+      responses:
+        '200':
+          description: Success
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
