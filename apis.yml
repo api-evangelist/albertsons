@@ -1,5 +1,6 @@
 aid: albertsons
-url: https://raw.githubusercontent.com/api-evangelist/albertsons/refs/heads/main/apis.yml
+url: 
+  https://raw.githubusercontent.com/api-evangelist/albertsons/refs/heads/main/apis.yml
 apis:
   - aid: albertsons:retail-media-api
     name: Albertsons Media Collective API
@@ -8,7 +9,8 @@ apis:
       - Retail
       - Advertising
       - Retail Media
-    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: 
+      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.albertsons.com
     humanURL: https://portal-prod.apim.azwestus.stratus.albertsons.com/
     properties:
@@ -17,4 +19,13 @@ apis:
       - url: openapi/albertsons-retail-media-api-openapi.yml
         type: OpenAPI
     description: >-
-      The Albertsons Media Collective API enables advertisers to integrate with Albertsons retail media network for campaign management and performance analytics. The API provides near-real-time access to campaign performance data, allowing advertisers to bring data into their own measurement models for analysis. The developer portal, built on Microsoft Azure API Management, provides API documentation, code samples, and an interactive console for testing.
+      The Albertsons Media Collective API enables advertisers to integrate with Albertsons
+      retail media network for campaign management and performance analytics. The
+      API provides near-real-time access to campaign performance data, allowing advertisers
+      to bring data into their own measurement models for analysis. The developer
+      portal, built on Microsoft Azure API Management, provides API documentation,
+      code samples, and an interactive console for testing.
+description: >-
+  Albertsons is one of the largest food and drug retailers in the United States, operating
+  supermarkets and pharmacies under banners such as Albertsons, Safeway, Vons, Jewel-Osco,
+  and Acme.
