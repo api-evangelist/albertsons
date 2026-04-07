@@ -11,12 +11,12 @@ info:
 servers:
   - url: https://api.albertsons.com
 tags:
+  - name: Audiences
+    description: Manage audience targeting segments.
   - name: Campaigns
     description: Manage advertising campaigns on the Albertsons Media Collective.
   - name: Performance
     description: Access campaign performance metrics and analytics.
-  - name: Audiences
-    description: Manage audience targeting segments.
 paths:
   /campaigns:
     get:

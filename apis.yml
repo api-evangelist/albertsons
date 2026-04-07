@@ -1,16 +1,14 @@
 aid: albertsons
-url: 
-  https://raw.githubusercontent.com/api-evangelist/albertsons/refs/heads/main/apis.yml
+url: https://raw.githubusercontent.com/api-evangelist/albertsons/refs/heads/main/apis.yml
 apis:
   - aid: albertsons:retail-media-api
     name: Albertsons Media Collective API
     tags:
+      - Advertising
       - Grocery
       - Retail
-      - Advertising
       - Retail Media
-    image: 
-      https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
+    image: https://kinlane-productions2.s3.amazonaws.com/apis-json/apis-json-logo.jpg
     baseURL: https://api.albertsons.com
     humanURL: https://portal-prod.apim.azwestus.stratus.albertsons.com/
     properties:
