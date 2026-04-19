@@ -1,0 +1,49 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/albertsons/refs/heads/main/json-structure/retail-media-api-performance-metric-structure.json",
+  "name": "Performance Metric",
+  "description": "Performance metrics for an advertising campaign at a given time period.",
+  "type": "object",
+  "properties": {
+    "date": {
+      "type": "date",
+      "description": "Date of the metric data point.",
+      "example": "2026-03-15"
+    },
+    "campaignId": {
+      "type": "string",
+      "description": "Campaign identifier associated with these metrics.",
+      "example": "500123"
+    },
+    "impressions": {
+      "type": "integer",
+      "description": "Number of ad impressions served.",
+      "example": 45000
+    },
+    "clicks": {
+      "type": "integer",
+      "description": "Number of ad clicks recorded.",
+      "example": 675
+    },
+    "conversions": {
+      "type": "integer",
+      "description": "Number of conversions attributed to the campaign.",
+      "example": 34
+    },
+    "spend": {
+      "type": "double",
+      "description": "Total ad spend in USD for the period.",
+      "example": 1250.0
+    },
+    "roas": {
+      "type": "double",
+      "description": "Return on ad spend ratio.",
+      "example": 4.2
+    },
+    "clickThroughRate": {
+      "type": "double",
+      "description": "Click-through rate as a decimal (clicks / impressions).",
+      "example": 0.015
+    }
+  }
+}

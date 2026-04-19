@@ -1,0 +1,10 @@
+{
+  "name": "Summer Grocery Promotion",
+  "budget": 25000.0,
+  "startDate": "2026-06-01",
+  "endDate": "2026-08-31",
+  "targetAudienceIds": [
+    "aud-001",
+    "aud-002"
+  ]
+}

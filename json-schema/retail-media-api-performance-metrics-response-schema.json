@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/albertsons/refs/heads/main/json-schema/retail-media-api-performance-metrics-response-schema.json",
+  "title": "Performance Metrics Response",
+  "description": "Collection of performance metric data points.",
+  "type": "object",
+  "properties": {
+    "metrics": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/PerformanceMetric"
+      },
+      "description": "Array of performance metric data points."
+    },
+    "total": {
+      "type": "integer",
+      "description": "Total number of metric records returned.",
+      "example": 31
+    }
+  }
+}

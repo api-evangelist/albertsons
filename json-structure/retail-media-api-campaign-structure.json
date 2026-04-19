@@ -1,0 +1,55 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/albertsons/refs/heads/main/json-structure/retail-media-api-campaign-structure.json",
+  "name": "Campaign",
+  "description": "An advertising campaign on the Albertsons Media Collective platform.",
+  "type": "object",
+  "properties": {
+    "campaignId": {
+      "type": "string",
+      "description": "Unique identifier of the campaign.",
+      "example": "500123"
+    },
+    "name": {
+      "type": "string",
+      "description": "Display name of the campaign.",
+      "example": "Spring Grocery Promotion"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "paused",
+        "completed",
+        "draft"
+      ],
+      "description": "Current status of the campaign.",
+      "example": "active"
+    },
+    "budget": {
+      "type": "double",
+      "description": "Total budget allocated to the campaign in USD.",
+      "example": 50000.0
+    },
+    "startDate": {
+      "type": "date",
+      "description": "Campaign start date in ISO 8601 format.",
+      "example": "2026-03-01"
+    },
+    "endDate": {
+      "type": "date",
+      "description": "Campaign end date in ISO 8601 format.",
+      "example": "2026-05-31"
+    },
+    "impressions": {
+      "type": "integer",
+      "description": "Total impressions delivered for the campaign.",
+      "example": 1250000
+    },
+    "clicks": {
+      "type": "integer",
+      "description": "Total clicks recorded for the campaign.",
+      "example": 18750
+    }
+  }
+}

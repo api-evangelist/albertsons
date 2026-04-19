@@ -1,0 +1,6 @@
+{
+  "reportId": "rpt-abc123",
+  "status": "completed",
+  "createdAt": "2026-04-19T10:30:00Z",
+  "downloadUrl": "https://api.albertsons.com/reports/rpt-abc123/download"
+}

@@ -1,0 +1,7 @@
+{
+  "audienceId": "aud-001",
+  "name": "Organic Food Buyers",
+  "description": "Shoppers with high organic product purchase frequency",
+  "size": 2500000,
+  "category": "grocery"
+}

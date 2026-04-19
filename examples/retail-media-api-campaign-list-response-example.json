@@ -1,0 +1,8 @@
+{
+  "campaigns": [
+    "string-value"
+  ],
+  "total": 42,
+  "limit": 20,
+  "offset": 0
+}

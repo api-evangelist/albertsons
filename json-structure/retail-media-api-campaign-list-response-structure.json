@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/albertsons/refs/heads/main/json-structure/retail-media-api-campaign-list-response-structure.json",
+  "name": "Campaign List Response",
+  "description": "Paginated list of campaigns.",
+  "type": "object",
+  "properties": {
+    "campaigns": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Campaign"
+      },
+      "description": "Array of campaign objects."
+    },
+    "total": {
+      "type": "integer",
+      "description": "Total number of campaigns matching the query.",
+      "example": 42
+    },
+    "limit": {
+      "type": "integer",
+      "description": "Maximum number of results returned.",
+      "example": 20
+    },
+    "offset": {
+      "type": "integer",
+      "description": "Number of results skipped.",
+      "example": 0
+    }
+  }
+}

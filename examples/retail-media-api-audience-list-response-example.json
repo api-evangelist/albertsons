@@ -1,0 +1,8 @@
+{
+  "audiences": [
+    "string-value"
+  ],
+  "total": 150,
+  "limit": 20,
+  "offset": 0
+}

@@ -1,0 +1,67 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/albertsons/refs/heads/main/json-schema/retail-media-api-report-request-schema.json",
+  "title": "Report Request",
+  "description": "Request body for generating a custom performance report.",
+  "type": "object",
+  "properties": {
+    "campaignIds": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "List of campaign IDs to include in the report. Empty returns all.",
+      "example": [
+        "500123"
+      ]
+    },
+    "startDate": {
+      "type": "string",
+      "format": "date",
+      "description": "Start date for the report period (ISO 8601).",
+      "example": "2026-03-01"
+    },
+    "endDate": {
+      "type": "string",
+      "format": "date",
+      "description": "End date for the report period (ISO 8601).",
+      "example": "2026-03-31"
+    },
+    "dimensions": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Dimensions to group report data by.",
+      "example": [
+        "date",
+        "campaign"
+      ]
+    },
+    "metrics": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      },
+      "description": "Metrics to include in the report.",
+      "example": [
+        "impressions",
+        "clicks",
+        "roas"
+      ]
+    },
+    "format": {
+      "type": "string",
+      "enum": [
+        "json",
+        "csv"
+      ],
+      "description": "Output format for the report.",
+      "example": "json"
+    }
+  },
+  "required": [
+    "startDate",
+    "endDate"
+  ]
+}

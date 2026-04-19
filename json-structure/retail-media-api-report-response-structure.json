@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/albertsons/refs/heads/main/json-structure/retail-media-api-report-response-structure.json",
+  "name": "Report Response",
+  "description": "Response containing the generated report details.",
+  "type": "object",
+  "properties": {
+    "reportId": {
+      "type": "string",
+      "description": "Unique identifier for the generated report.",
+      "example": "rpt-abc123"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "pending",
+        "processing",
+        "completed",
+        "failed"
+      ],
+      "description": "Current status of the report generation.",
+      "example": "completed"
+    },
+    "createdAt": {
+      "type": "datetime",
+      "description": "Timestamp when the report was created.",
+      "example": "2026-04-19T10:30:00Z"
+    },
+    "downloadUrl": {
+      "type": "uri",
+      "description": "URL to download the completed report.",
+      "example": "https://api.albertsons.com/reports/rpt-abc123/download"
+    }
+  }
+}

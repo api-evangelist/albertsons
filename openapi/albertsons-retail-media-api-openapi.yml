@@ -6,39 +6,235 @@ info:
     Albertsons retail media network for campaign management and performance
     analytics. The API provides near-real-time access to campaign performance
     data, allowing advertisers to bring data into their own measurement
-    models for analysis.
+    models for analysis. Supported via the Albertsons developer portal built
+    on Microsoft Azure API Management.
   version: '1.0'
+  contact:
+    name: Albertsons Media Collective
+    url: https://portal-prod.apim.azwestus.stratus.albertsons.com/
+  x-generated-from: documentation
 servers:
   - url: https://api.albertsons.com
+    description: Production API server
 tags:
   - name: Audiences
-    description: Manage audience targeting segments.
+    description: Manage audience targeting segments for retail media campaigns.
   - name: Campaigns
     description: Manage advertising campaigns on the Albertsons Media Collective.
   - name: Performance
     description: Access campaign performance metrics and analytics.
+  - name: Reporting
+    description: Generate and retrieve performance reports.
 paths:
   /campaigns:
     get:
       operationId: listCampaigns
-      summary: List campaigns
+      summary: Albertsons Media Collective List Campaigns
       description: >-
         Retrieves a list of advertising campaigns configured on the
         Albertsons Media Collective platform with status, budget, and
         targeting details.
       tags:
         - Campaigns
+      parameters:
+        - name: status
+          in: query
+          description: Filter campaigns by status (active, paused, completed, draft).
+          schema:
+            type: string
+            enum:
+              - active
+              - paused
+              - completed
+              - draft
+          example: active
+        - name: limit
+          in: query
+          description: Maximum number of campaigns to return.
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+          example: 20
+        - name: offset
+          in: query
+          description: Number of campaigns to skip for pagination.
+          schema:
+            type: integer
+            default: 0
+          example: 0
+      security:
+        - bearerAuth: []
       responses:
         '200':
-          description: Success
+          description: List of campaigns retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignListResponse'
+              examples:
+                ListCampaigns200Example:
+                  summary: Default listCampaigns 200 response
+                  x-microcks-default: true
+                  value:
+                    campaigns:
+                      - campaignId: '500123'
+                        name: Spring EV Battery Promotion
+                        status: active
+                        budget: 50000.00
+                        startDate: '2026-03-01'
+                        endDate: '2026-05-31'
+                        impressions: 1250000
+                        clicks: 18750
+                    total: 1
+                    limit: 20
+                    offset: 0
+        '401':
+          description: Unauthorized - invalid or missing bearer token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden - insufficient permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createCampaign
+      summary: Albertsons Media Collective Create Campaign
+      description: >-
+        Creates a new advertising campaign on the Albertsons Media Collective
+        platform with specified budget, targeting, and scheduling parameters.
+      tags:
+        - Campaigns
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCampaignRequest'
+            examples:
+              CreateCampaignRequestExample:
+                summary: Default createCampaign request
+                x-microcks-default: true
+                value:
+                  name: Summer Grocery Promotion
+                  budget: 25000.00
+                  startDate: '2026-06-01'
+                  endDate: '2026-08-31'
+                  targetAudienceIds:
+                    - aud-001
+                    - aud-002
+      responses:
+        '201':
+          description: Campaign created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+              examples:
+                CreateCampaign201Example:
+                  summary: Default createCampaign 201 response
+                  x-microcks-default: true
+                  value:
+                    campaignId: '500124'
+                    name: Summer Grocery Promotion
+                    status: draft
+                    budget: 25000.00
+                    startDate: '2026-06-01'
+                    endDate: '2026-08-31'
+                    impressions: 0
+                    clicks: 0
+        '400':
+          description: Bad request - invalid campaign parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /campaigns/{campaignId}:
+    get:
+      operationId: getCampaign
+      summary: Albertsons Media Collective Get Campaign
+      description: >-
+        Retrieves details for a specific advertising campaign by its unique
+        identifier, including status, budget utilization, and targeting configuration.
+      tags:
+        - Campaigns
+      parameters:
+        - name: campaignId
+          in: path
+          required: true
+          description: Unique identifier of the campaign.
+          schema:
+            type: string
+          example: '500123'
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Campaign details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+              examples:
+                GetCampaign200Example:
+                  summary: Default getCampaign 200 response
+                  x-microcks-default: true
+                  value:
+                    campaignId: '500123'
+                    name: Spring EV Battery Promotion
+                    status: active
+                    budget: 50000.00
+                    startDate: '2026-03-01'
+                    endDate: '2026-05-31'
+                    impressions: 1250000
+                    clicks: 18750
+        '404':
+          description: Campaign not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /performance:
     get:
       operationId: listPerformanceMetrics
-      summary: List performance metrics
+      summary: Albertsons Media Collective List Performance Metrics
       description: >-
         Retrieves near-real-time performance metrics for active and
         completed advertising campaigns, including impressions, clicks,
-        conversions, and return on ad spend.
+        conversions, and return on ad spend (ROAS).
       tags:
         - Performance
       parameters:
@@ -47,35 +243,498 @@ paths:
           description: Filter metrics by campaign identifier.
           schema:
             type: string
+          example: '500123'
         - name: startDate
           in: query
-          description: Start date for metrics window (ISO 8601).
+          description: Start date for metrics window (ISO 8601 date format).
           schema:
             type: string
             format: date
+          example: '2026-03-01'
         - name: endDate
           in: query
-          description: End date for metrics window (ISO 8601).
+          description: End date for metrics window (ISO 8601 date format).
           schema:
             type: string
             format: date
+          example: '2026-03-31'
+        - name: granularity
+          in: query
+          description: Time granularity for metrics aggregation.
+          schema:
+            type: string
+            enum:
+              - daily
+              - weekly
+              - monthly
+            default: daily
+          example: daily
+      security:
+        - bearerAuth: []
       responses:
         '200':
-          description: Success
+          description: Performance metrics retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerformanceMetricsResponse'
+              examples:
+                ListPerformanceMetrics200Example:
+                  summary: Default listPerformanceMetrics 200 response
+                  x-microcks-default: true
+                  value:
+                    metrics:
+                      - date: '2026-03-15'
+                        campaignId: '500123'
+                        impressions: 45000
+                        clicks: 675
+                        conversions: 34
+                        spend: 1250.00
+                        roas: 4.2
+                        clickThroughRate: 0.015
+                    total: 1
+        '400':
+          description: Bad request - invalid date range or parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
   /audiences:
     get:
       operationId: listAudiences
-      summary: List audiences
+      summary: Albertsons Media Collective List Audiences
       description: >-
         Retrieves a list of audience segments available for campaign
-        targeting on the Albertsons Media Collective.
+        targeting on the Albertsons Media Collective, based on shopper
+        purchase behavior and demographic data.
       tags:
         - Audiences
+      parameters:
+        - name: category
+          in: query
+          description: Filter audiences by product category.
+          schema:
+            type: string
+          example: grocery
+        - name: limit
+          in: query
+          description: Maximum number of audience segments to return.
+          schema:
+            type: integer
+            default: 20
+            maximum: 100
+          example: 20
+      security:
+        - bearerAuth: []
       responses:
         '200':
-          description: Success
+          description: Audience segments retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/AudienceListResponse'
+              examples:
+                ListAudiences200Example:
+                  summary: Default listAudiences 200 response
+                  x-microcks-default: true
+                  value:
+                    audiences:
+                      - audienceId: aud-001
+                        name: Organic Food Buyers
+                        description: Shoppers with high organic product purchase frequency
+                        size: 2500000
+                        category: grocery
+                    total: 1
+                    limit: 20
+                    offset: 0
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /reports:
+    post:
+      operationId: generateReport
+      summary: Albertsons Media Collective Generate Report
+      description: >-
+        Generates a custom performance report for advertising campaigns
+        with specified dimensions, metrics, and date ranges for export
+        to external analytics dashboards.
+      tags:
+        - Reporting
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportRequest'
+            examples:
+              GenerateReportRequestExample:
+                summary: Default generateReport request
+                x-microcks-default: true
+                value:
+                  campaignIds:
+                    - '500123'
+                  startDate: '2026-03-01'
+                  endDate: '2026-03-31'
+                  dimensions:
+                    - date
+                    - campaign
+                  metrics:
+                    - impressions
+                    - clicks
+                    - roas
+                  format: json
+      responses:
+        '200':
+          description: Report generated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+              examples:
+                GenerateReport200Example:
+                  summary: Default generateReport 200 response
+                  x-microcks-default: true
+                  value:
+                    reportId: rpt-abc123
+                    status: completed
+                    createdAt: '2026-04-19T10:30:00Z'
+                    downloadUrl: https://api.albertsons.com/reports/rpt-abc123/download
+        '400':
+          description: Bad request - invalid report parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
 components:
   securitySchemes:
     bearerAuth:
       type: http
       scheme: bearer
+      description: Bearer token authentication via Azure AD OAuth2.
+  schemas:
+    Campaign:
+      type: object
+      title: Campaign
+      description: An advertising campaign on the Albertsons Media Collective platform.
+      properties:
+        campaignId:
+          type: string
+          description: Unique identifier of the campaign.
+          example: '500123'
+        name:
+          type: string
+          description: Display name of the campaign.
+          example: Spring Grocery Promotion
+        status:
+          type: string
+          enum:
+            - active
+            - paused
+            - completed
+            - draft
+          description: Current status of the campaign.
+          example: active
+        budget:
+          type: number
+          format: double
+          description: Total budget allocated to the campaign in USD.
+          example: 50000.00
+        startDate:
+          type: string
+          format: date
+          description: Campaign start date in ISO 8601 format.
+          example: '2026-03-01'
+        endDate:
+          type: string
+          format: date
+          description: Campaign end date in ISO 8601 format.
+          example: '2026-05-31'
+        impressions:
+          type: integer
+          description: Total impressions delivered for the campaign.
+          example: 1250000
+        clicks:
+          type: integer
+          description: Total clicks recorded for the campaign.
+          example: 18750
+    CampaignListResponse:
+      type: object
+      title: Campaign List Response
+      description: Paginated list of campaigns.
+      properties:
+        campaigns:
+          type: array
+          items:
+            $ref: '#/components/schemas/Campaign'
+          description: Array of campaign objects.
+        total:
+          type: integer
+          description: Total number of campaigns matching the query.
+          example: 42
+        limit:
+          type: integer
+          description: Maximum number of results returned.
+          example: 20
+        offset:
+          type: integer
+          description: Number of results skipped.
+          example: 0
+    CreateCampaignRequest:
+      type: object
+      title: Create Campaign Request
+      description: Request body for creating a new advertising campaign.
+      required:
+        - name
+        - budget
+        - startDate
+        - endDate
+      properties:
+        name:
+          type: string
+          description: Display name for the new campaign.
+          example: Summer Grocery Promotion
+        budget:
+          type: number
+          format: double
+          description: Total budget allocated to the campaign in USD.
+          example: 25000.00
+        startDate:
+          type: string
+          format: date
+          description: Campaign start date (ISO 8601).
+          example: '2026-06-01'
+        endDate:
+          type: string
+          format: date
+          description: Campaign end date (ISO 8601).
+          example: '2026-08-31'
+        targetAudienceIds:
+          type: array
+          items:
+            type: string
+          description: List of audience segment IDs for targeting.
+          example:
+            - aud-001
+            - aud-002
+    PerformanceMetric:
+      type: object
+      title: Performance Metric
+      description: Performance metrics for an advertising campaign at a given time period.
+      properties:
+        date:
+          type: string
+          format: date
+          description: Date of the metric data point.
+          example: '2026-03-15'
+        campaignId:
+          type: string
+          description: Campaign identifier associated with these metrics.
+          example: '500123'
+        impressions:
+          type: integer
+          description: Number of ad impressions served.
+          example: 45000
+        clicks:
+          type: integer
+          description: Number of ad clicks recorded.
+          example: 675
+        conversions:
+          type: integer
+          description: Number of conversions attributed to the campaign.
+          example: 34
+        spend:
+          type: number
+          format: double
+          description: Total ad spend in USD for the period.
+          example: 1250.00
+        roas:
+          type: number
+          format: double
+          description: Return on ad spend ratio.
+          example: 4.2
+        clickThroughRate:
+          type: number
+          format: double
+          description: Click-through rate as a decimal (clicks / impressions).
+          example: 0.015
+    PerformanceMetricsResponse:
+      type: object
+      title: Performance Metrics Response
+      description: Collection of performance metric data points.
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/PerformanceMetric'
+          description: Array of performance metric data points.
+        total:
+          type: integer
+          description: Total number of metric records returned.
+          example: 31
+    Audience:
+      type: object
+      title: Audience
+      description: An audience targeting segment based on shopper behavior.
+      properties:
+        audienceId:
+          type: string
+          description: Unique identifier of the audience segment.
+          example: aud-001
+        name:
+          type: string
+          description: Display name of the audience segment.
+          example: Organic Food Buyers
+        description:
+          type: string
+          description: Description of the audience segment criteria.
+          example: Shoppers with high organic product purchase frequency
+        size:
+          type: integer
+          description: Approximate number of shoppers in the audience segment.
+          example: 2500000
+        category:
+          type: string
+          description: Product category associated with the audience.
+          example: grocery
+    AudienceListResponse:
+      type: object
+      title: Audience List Response
+      description: Paginated list of audience segments.
+      properties:
+        audiences:
+          type: array
+          items:
+            $ref: '#/components/schemas/Audience'
+          description: Array of audience segment objects.
+        total:
+          type: integer
+          description: Total number of audience segments available.
+          example: 150
+        limit:
+          type: integer
+          description: Maximum number of results returned.
+          example: 20
+        offset:
+          type: integer
+          description: Number of results skipped.
+          example: 0
+    ReportRequest:
+      type: object
+      title: Report Request
+      description: Request body for generating a custom performance report.
+      required:
+        - startDate
+        - endDate
+      properties:
+        campaignIds:
+          type: array
+          items:
+            type: string
+          description: List of campaign IDs to include in the report. Empty returns all.
+          example:
+            - '500123'
+        startDate:
+          type: string
+          format: date
+          description: Start date for the report period (ISO 8601).
+          example: '2026-03-01'
+        endDate:
+          type: string
+          format: date
+          description: End date for the report period (ISO 8601).
+          example: '2026-03-31'
+        dimensions:
+          type: array
+          items:
+            type: string
+          description: Dimensions to group report data by.
+          example:
+            - date
+            - campaign
+        metrics:
+          type: array
+          items:
+            type: string
+          description: Metrics to include in the report.
+          example:
+            - impressions
+            - clicks
+            - roas
+        format:
+          type: string
+          enum:
+            - json
+            - csv
+          description: Output format for the report.
+          example: json
+    ReportResponse:
+      type: object
+      title: Report Response
+      description: Response containing the generated report details.
+      properties:
+        reportId:
+          type: string
+          description: Unique identifier for the generated report.
+          example: rpt-abc123
+        status:
+          type: string
+          enum:
+            - pending
+            - processing
+            - completed
+            - failed
+          description: Current status of the report generation.
+          example: completed
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the report was created.
+          example: '2026-04-19T10:30:00Z'
+        downloadUrl:
+          type: string
+          format: uri
+          description: URL to download the completed report.
+          example: https://api.albertsons.com/reports/rpt-abc123/download
+    ErrorResponse:
+      type: object
+      title: Error Response
+      description: Standard error response object.
+      properties:
+        error:
+          type: string
+          description: Error code identifier.
+          example: UNAUTHORIZED
+        message:
+          type: string
+          description: Human-readable error message.
+          example: Invalid or missing bearer token.
+        statusCode:
+          type: integer
+          description: HTTP status code.
+          example: 401

@@ -1,0 +1,5 @@
+{
+  "error": "UNAUTHORIZED",
+  "message": "Invalid or missing bearer token.",
+  "statusCode": 401
+}

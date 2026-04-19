@@ -1,0 +1,10 @@
+{
+  "campaignId": "500123",
+  "name": "Spring Grocery Promotion",
+  "status": "active",
+  "budget": 50000.0,
+  "startDate": "2026-03-01",
+  "endDate": "2026-05-31",
+  "impressions": 1250000,
+  "clicks": 18750
+}

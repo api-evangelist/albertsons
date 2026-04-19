@@ -1,0 +1,148 @@
+{
+  "@context": {
+    "@version": 1.1,
+    "alb": "https://albertsons.com/schema/",
+    "schema": "https://schema.org/",
+    "dcterms": "http://purl.org/dc/terms/",
+    "xsd": "http://www.w3.org/2001/XMLSchema#",
+    "Audience List Response": "alb:Audience List Response",
+    "Audience": "alb:Audience",
+    "Campaign List Response": "alb:Campaign List Response",
+    "Campaign": "alb:Campaign",
+    "Create Campaign Request": "alb:Create Campaign Request",
+    "Error Response": "alb:Error Response",
+    "Performance Metric": "alb:Performance Metric",
+    "Performance Metrics Response": "alb:Performance Metrics Response",
+    "Report Request": "alb:Report Request",
+    "Report Response": "alb:Report Response",
+    "audienceId": {
+      "@id": "alb:audienceId",
+      "@type": "xsd:string"
+    },
+    "audiences": {
+      "@id": "alb:audiences",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "budget": {
+      "@id": "alb:budget",
+      "@type": "xsd:double"
+    },
+    "campaignId": {
+      "@id": "alb:campaignId",
+      "@type": "xsd:string"
+    },
+    "campaignIds": {
+      "@id": "alb:campaignIds",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "campaigns": {
+      "@id": "alb:campaigns",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "category": {
+      "@id": "alb:category",
+      "@type": "xsd:string"
+    },
+    "clickThroughRate": {
+      "@id": "alb:clickThroughRate",
+      "@type": "xsd:double"
+    },
+    "clicks": {
+      "@id": "alb:clicks",
+      "@type": "xsd:integer"
+    },
+    "conversions": {
+      "@id": "alb:conversions",
+      "@type": "xsd:integer"
+    },
+    "createdAt": "schema:dateCreated",
+    "date": {
+      "@id": "alb:date",
+      "@type": "xsd:date"
+    },
+    "description": "schema:description",
+    "dimensions": {
+      "@id": "alb:dimensions",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "downloadUrl": {
+      "@id": "alb:downloadUrl",
+      "@type": "@id"
+    },
+    "endDate": {
+      "@id": "alb:endDate",
+      "@type": "xsd:date"
+    },
+    "error": {
+      "@id": "alb:error",
+      "@type": "xsd:string"
+    },
+    "format": {
+      "@id": "alb:format",
+      "@type": "xsd:string"
+    },
+    "impressions": {
+      "@id": "alb:impressions",
+      "@type": "xsd:integer"
+    },
+    "limit": {
+      "@id": "alb:limit",
+      "@type": "xsd:integer"
+    },
+    "message": {
+      "@id": "alb:message",
+      "@type": "xsd:string"
+    },
+    "metrics": {
+      "@id": "alb:metrics",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "name": "schema:name",
+    "offset": {
+      "@id": "alb:offset",
+      "@type": "xsd:integer"
+    },
+    "reportId": {
+      "@id": "alb:reportId",
+      "@type": "xsd:string"
+    },
+    "roas": {
+      "@id": "alb:roas",
+      "@type": "xsd:double"
+    },
+    "size": {
+      "@id": "alb:size",
+      "@type": "xsd:integer"
+    },
+    "spend": {
+      "@id": "alb:spend",
+      "@type": "xsd:double"
+    },
+    "startDate": {
+      "@id": "alb:startDate",
+      "@type": "xsd:date"
+    },
+    "status": {
+      "@id": "alb:status",
+      "@type": "xsd:string"
+    },
+    "statusCode": {
+      "@id": "alb:statusCode",
+      "@type": "xsd:integer"
+    },
+    "targetAudienceIds": {
+      "@id": "alb:targetAudienceIds",
+      "@container": "@set",
+      "@type": "xsd:string"
+    },
+    "total": {
+      "@id": "alb:total",
+      "@type": "xsd:integer"
+    }
+  }
+}

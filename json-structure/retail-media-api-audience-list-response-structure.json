@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-structure.org/meta/core/v0/#",
+  "$id": "https://raw.githubusercontent.com/api-evangelist/albertsons/refs/heads/main/json-structure/retail-media-api-audience-list-response-structure.json",
+  "name": "Audience List Response",
+  "description": "Paginated list of audience segments.",
+  "type": "object",
+  "properties": {
+    "audiences": {
+      "type": "array",
+      "items": {
+        "$ref": "#/components/schemas/Audience"
+      },
+      "description": "Array of audience segment objects."
+    },
+    "total": {
+      "type": "integer",
+      "description": "Total number of audience segments available.",
+      "example": 150
+    },
+    "limit": {
+      "type": "integer",
+      "description": "Maximum number of results returned.",
+      "example": 20
+    },
+    "offset": {
+      "type": "integer",
+      "description": "Number of results skipped.",
+      "example": 0
+    }
+  }
+}

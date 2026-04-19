@@ -1,0 +1,196 @@
+naftiko: "1.0.0-alpha1"
+
+info:
+  label: "Albertsons Retail Media Advertising"
+  description: "Unified retail media advertising workflow combining campaign management, audience targeting, performance analytics, and custom reporting for advertisers on the Albertsons Media Collective platform. Designed for brand managers and media planners managing grocery retail advertising campaigns."
+  tags:
+    - Albertsons
+    - Retail Media
+    - Advertising
+    - Campaigns
+    - Performance Analytics
+    - Audience Targeting
+  created: "2026-04-19"
+  modified: "2026-04-19"
+
+binds:
+  - namespace: env
+    keys:
+      ALBERTSONS_API_TOKEN: ALBERTSONS_API_TOKEN
+
+capability:
+  consumes:
+    - import: retail-media-api
+      location: ./shared/retail-media-api.yaml
+
+  exposes:
+    - type: rest
+      port: 8080
+      namespace: albertsons-advertising-api
+      description: "Unified REST API for retail media advertising on the Albertsons Media Collective."
+      resources:
+        - path: /v1/campaigns
+          name: campaigns
+          description: "Advertising campaign management."
+          operations:
+            - method: GET
+              name: list-campaigns
+              description: "List all advertising campaigns with status and budget details."
+              call: "retail-media-api.list-campaigns"
+              with:
+                status: "rest.status"
+                limit: "rest.limit"
+                offset: "rest.offset"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+            - method: POST
+              name: create-campaign
+              description: "Create a new advertising campaign."
+              call: "retail-media-api.create-campaign"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/campaigns/{campaignId}
+          name: campaign-detail
+          description: "Campaign detail retrieval."
+          operations:
+            - method: GET
+              name: get-campaign
+              description: "Get campaign details by identifier."
+              call: "retail-media-api.get-campaign"
+              with:
+                campaignId: "rest.campaignId"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/performance
+          name: performance
+          description: "Campaign performance metrics."
+          operations:
+            - method: GET
+              name: list-performance-metrics
+              description: "Retrieve near-real-time performance metrics."
+              call: "retail-media-api.list-performance-metrics"
+              with:
+                campaignId: "rest.campaignId"
+                startDate: "rest.startDate"
+                endDate: "rest.endDate"
+                granularity: "rest.granularity"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/audiences
+          name: audiences
+          description: "Audience targeting segments."
+          operations:
+            - method: GET
+              name: list-audiences
+              description: "List audience segments for campaign targeting."
+              call: "retail-media-api.list-audiences"
+              with:
+                category: "rest.category"
+                limit: "rest.limit"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+        - path: /v1/reports
+          name: reports
+          description: "Custom performance report generation."
+          operations:
+            - method: POST
+              name: generate-report
+              description: "Generate a custom performance report."
+              call: "retail-media-api.generate-report"
+              outputParameters:
+                - type: object
+                  mapping: "$."
+
+    - type: mcp
+      port: 9090
+      namespace: albertsons-advertising-mcp
+      transport: http
+      description: "MCP server for AI-assisted retail media advertising management on the Albertsons Media Collective."
+      tools:
+        - name: list-campaigns
+          description: "List all advertising campaigns on the Albertsons Media Collective with status, budget, and targeting details."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "retail-media-api.list-campaigns"
+          with:
+            status: "tools.status"
+            limit: "tools.limit"
+            offset: "tools.offset"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: create-campaign
+          description: "Create a new advertising campaign with budget, audience targeting, and scheduling on Albertsons Media Collective."
+          hints:
+            readOnly: false
+            destructive: false
+            idempotent: false
+          call: "retail-media-api.create-campaign"
+          with:
+            name: "tools.name"
+            budget: "tools.budget"
+            startDate: "tools.startDate"
+            endDate: "tools.endDate"
+            targetAudienceIds: "tools.targetAudienceIds"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: get-campaign
+          description: "Get detailed information about a specific advertising campaign by its identifier."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "retail-media-api.get-campaign"
+          with:
+            campaignId: "tools.campaignId"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-performance-metrics
+          description: "Retrieve near-real-time advertising performance metrics including impressions, clicks, conversions, and return on ad spend."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "retail-media-api.list-performance-metrics"
+          with:
+            campaignId: "tools.campaignId"
+            startDate: "tools.startDate"
+            endDate: "tools.endDate"
+            granularity: "tools.granularity"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: list-audiences
+          description: "List audience targeting segments available on Albertsons Media Collective based on shopper purchase behavior."
+          hints:
+            readOnly: true
+            openWorld: true
+          call: "retail-media-api.list-audiences"
+          with:
+            category: "tools.category"
+            limit: "tools.limit"
+          outputParameters:
+            - type: object
+              mapping: "$."
+        - name: generate-report
+          description: "Generate a custom performance report for advertising campaigns with configurable dimensions, metrics, and date ranges."
+          hints:
+            readOnly: true
+            openWorld: false
+          call: "retail-media-api.generate-report"
+          with:
+            campaignIds: "tools.campaignIds"
+            startDate: "tools.startDate"
+            endDate: "tools.endDate"
+            dimensions: "tools.dimensions"
+            metrics: "tools.metrics"
+            format: "tools.format"
+          outputParameters:
+            - type: object
+              mapping: "$."

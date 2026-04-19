@@ -1,0 +1,17 @@
+{
+  "campaignIds": [
+    "500123"
+  ],
+  "startDate": "2026-03-01",
+  "endDate": "2026-03-31",
+  "dimensions": [
+    "date",
+    "campaign"
+  ],
+  "metrics": [
+    "impressions",
+    "clicks",
+    "roas"
+  ],
+  "format": "json"
+}
