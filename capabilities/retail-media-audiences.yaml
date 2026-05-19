@@ -1,0 +1,85 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Albertsons Media Collective API — Audiences
+  description: 'Albertsons Media Collective API — Audiences. 1 operations. Lead operation: Albertsons Media Collective List
+    Audiences. Self-contained Naftiko capability covering one Albertsons business surface.'
+  tags:
+  - Albertsons
+  - Audiences
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ALBERTSONS_API_KEY: ALBERTSONS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: retail-media-audiences
+    baseUri: https://api.albertsons.com
+    description: Albertsons Media Collective API — Audiences business capability. Self-contained, no shared references.
+    resources:
+    - name: audiences
+      path: /audiences
+      operations:
+      - name: listaudiences
+        method: GET
+        description: Albertsons Media Collective List Audiences
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: category
+          in: query
+          type: string
+          description: Filter audiences by product category.
+        - name: limit
+          in: query
+          type: integer
+          description: Maximum number of audience segments to return.
+    authentication:
+      type: bearer
+      token: '{{env.ALBERTSONS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: retail-media-audiences-rest
+    port: 8080
+    description: REST adapter for Albertsons Media Collective API — Audiences. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/audiences
+      name: audiences
+      description: REST surface for audiences.
+      operations:
+      - method: GET
+        name: listaudiences
+        description: Albertsons Media Collective List Audiences
+        call: retail-media-audiences.listaudiences
+        with:
+          category: rest.category
+          limit: rest.limit
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: retail-media-audiences-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Albertsons Media Collective API — Audiences. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: albertsons-media-collective-list-audiences
+      description: Albertsons Media Collective List Audiences
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: retail-media-audiences.listaudiences
+      with:
+        category: tools.category
+        limit: tools.limit
+      outputParameters:
+      - type: object
+        mapping: $.

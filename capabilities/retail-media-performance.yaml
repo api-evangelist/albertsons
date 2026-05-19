@@ -1,0 +1,97 @@
+naftiko: 1.0.0-alpha2
+info:
+  label: Albertsons Media Collective API — Performance
+  description: 'Albertsons Media Collective API — Performance. 1 operations. Lead operation: Albertsons Media Collective List
+    Performance Metrics. Self-contained Naftiko capability covering one Albertsons business surface.'
+  tags:
+  - Albertsons
+  - Performance
+  created: '2026-05-19'
+  modified: '2026-05-19'
+binds:
+- namespace: env
+  keys:
+    ALBERTSONS_API_KEY: ALBERTSONS_API_KEY
+capability:
+  consumes:
+  - type: http
+    namespace: retail-media-performance
+    baseUri: https://api.albertsons.com
+    description: Albertsons Media Collective API — Performance business capability. Self-contained, no shared references.
+    resources:
+    - name: performance
+      path: /performance
+      operations:
+      - name: listperformancemetrics
+        method: GET
+        description: Albertsons Media Collective List Performance Metrics
+        outputRawFormat: json
+        outputParameters:
+        - name: result
+          type: object
+          value: $.
+        inputParameters:
+        - name: campaignId
+          in: query
+          type: string
+          description: Filter metrics by campaign identifier.
+        - name: startDate
+          in: query
+          type: string
+          description: Start date for metrics window (ISO 8601 date format).
+        - name: endDate
+          in: query
+          type: string
+          description: End date for metrics window (ISO 8601 date format).
+        - name: granularity
+          in: query
+          type: string
+          description: Time granularity for metrics aggregation.
+    authentication:
+      type: bearer
+      token: '{{env.ALBERTSONS_API_KEY}}'
+  exposes:
+  - type: rest
+    namespace: retail-media-performance-rest
+    port: 8080
+    description: REST adapter for Albertsons Media Collective API — Performance. One Spectral-compliant resource per consumed
+      operation, prefixed with /v1.
+    resources:
+    - path: /v1/performance
+      name: performance
+      description: REST surface for performance.
+      operations:
+      - method: GET
+        name: listperformancemetrics
+        description: Albertsons Media Collective List Performance Metrics
+        call: retail-media-performance.listperformancemetrics
+        with:
+          campaignId: rest.campaignId
+          startDate: rest.startDate
+          endDate: rest.endDate
+          granularity: rest.granularity
+        outputParameters:
+        - type: object
+          mapping: $.
+  - type: mcp
+    namespace: retail-media-performance-mcp
+    port: 9090
+    transport: http
+    description: MCP adapter for Albertsons Media Collective API — Performance. One tool per consumed operation, routed inline
+      through this capability's consumes block.
+    tools:
+    - name: albertsons-media-collective-list-performance
+      description: Albertsons Media Collective List Performance Metrics
+      hints:
+        readOnly: true
+        destructive: false
+        idempotent: true
+      call: retail-media-performance.listperformancemetrics
+      with:
+        campaignId: tools.campaignId
+        startDate: tools.startDate
+        endDate: tools.endDate
+        granularity: tools.granularity
+      outputParameters:
+      - type: object
+        mapping: $.
