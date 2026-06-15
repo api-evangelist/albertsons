@@ -1,0 +1,208 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Albertsons Media Collective API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Albertsons Media Collective List Campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.albertsons.com/campaigns",
+            "params": [
+              {
+                "name": "status",
+                "value": "active",
+                "type": "query",
+                "description": "Filter campaigns by status (active, paused, completed, draft)."
+              },
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of campaigns to return."
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of campaigns to skip for pagination."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of advertising campaigns configured on the Albertsons Media Collective platform with status, budget, and targeting details."
+        },
+        {
+          "info": {
+            "name": "Albertsons Media Collective Create Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.albertsons.com/campaigns",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new advertising campaign on the Albertsons Media Collective platform with specified budget, targeting, and scheduling parameters."
+        },
+        {
+          "info": {
+            "name": "Albertsons Media Collective Get Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.albertsons.com/campaigns/:campaignId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "500123",
+                "type": "path",
+                "description": "Unique identifier of the campaign."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves details for a specific advertising campaign by its unique identifier, including status, budget utilization, and targeting configuration."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Performance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Albertsons Media Collective List Performance Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.albertsons.com/performance",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "500123",
+                "type": "query",
+                "description": "Filter metrics by campaign identifier."
+              },
+              {
+                "name": "startDate",
+                "value": "2026-03-01",
+                "type": "query",
+                "description": "Start date for metrics window (ISO 8601 date format)."
+              },
+              {
+                "name": "endDate",
+                "value": "2026-03-31",
+                "type": "query",
+                "description": "End date for metrics window (ISO 8601 date format)."
+              },
+              {
+                "name": "granularity",
+                "value": "daily",
+                "type": "query",
+                "description": "Time granularity for metrics aggregation."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves near-real-time performance metrics for active and completed advertising campaigns, including impressions, clicks, conversions, and return on ad spend (ROAS)."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Audiences",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Albertsons Media Collective List Audiences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.albertsons.com/audiences",
+            "params": [
+              {
+                "name": "category",
+                "value": "grocery",
+                "type": "query",
+                "description": "Filter audiences by product category."
+              },
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of audience segments to return."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of audience segments available for campaign targeting on the Albertsons Media Collective, based on shopper purchase behavior and demographic data."
+        }
+      ]
+    },
+    {
+      "info": {
+        "name": "Reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Albertsons Media Collective Generate Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.albertsons.com/reports",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generates a custom performance report for advertising campaigns with specified dimensions, metrics, and date ranges for export to external analytics dashboards."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
