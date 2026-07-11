@@ -41,6 +41,10 @@ apis:
         url: json-schema/retail-media-api-report-response-schema.json
         title: Report Response Schema
 common:
+  - type: DomainSecurity
+    url: security/albertsons-domain-security.yml
+  - type: Authentication
+    url: authentication/albertsons-authentication.yml
   - type: LinkedIn
     url: https://www.linkedin.com/company/albertsons
   - type: Website

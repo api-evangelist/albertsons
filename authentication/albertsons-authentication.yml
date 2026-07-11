@@ -1,0 +1,13 @@
+generated: '2026-07-11'
+method: derived
+source: openapi/albertsons-retail-media-api-openapi.yml
+summary:
+  types:
+  - http
+schemes:
+- name: bearerAuth
+  type: http
+  scheme: bearer
+  description: Bearer token authentication via Azure AD OAuth2.
+  sources:
+  - openapi/albertsons-retail-media-api-openapi.yml
