@@ -41,6 +41,8 @@ apis:
         url: json-schema/retail-media-api-report-response-schema.json
         title: Report Response Schema
 common:
+  - type: AgenticAccess
+    url: agentic-access/albertsons-agentic-access.yml
   - type: DomainSecurity
     url: security/albertsons-domain-security.yml
   - type: Authentication
