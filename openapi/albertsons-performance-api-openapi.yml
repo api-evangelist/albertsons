@@ -1,0 +1,173 @@
+openapi: 3.1.0
+info:
+  title: Albertsons Media Collective Audiences Performance API
+  description: The Albertsons Media Collective API enables advertisers to integrate with Albertsons retail media network for campaign management and performance analytics. The API provides near-real-time access to campaign performance data, allowing advertisers to bring data into their own measurement models for analysis. Supported via the Albertsons developer portal built on Microsoft Azure API Management.
+  version: '1.0'
+  contact:
+    name: Albertsons Media Collective
+    url: https://portal-prod.apim.azwestus.stratus.albertsons.com/
+  x-generated-from: documentation
+servers:
+- url: https://api.albertsons.com
+  description: Production API server
+tags:
+- name: Performance
+  description: Access campaign performance metrics and analytics.
+paths:
+  /performance:
+    get:
+      operationId: listPerformanceMetrics
+      summary: Albertsons Media Collective List Performance Metrics
+      description: Retrieves near-real-time performance metrics for active and completed advertising campaigns, including impressions, clicks, conversions, and return on ad spend (ROAS).
+      tags:
+      - Performance
+      parameters:
+      - name: campaignId
+        in: query
+        description: Filter metrics by campaign identifier.
+        schema:
+          type: string
+        example: '500123'
+      - name: startDate
+        in: query
+        description: Start date for metrics window (ISO 8601 date format).
+        schema:
+          type: string
+          format: date
+        example: '2026-03-01'
+      - name: endDate
+        in: query
+        description: End date for metrics window (ISO 8601 date format).
+        schema:
+          type: string
+          format: date
+        example: '2026-03-31'
+      - name: granularity
+        in: query
+        description: Time granularity for metrics aggregation.
+        schema:
+          type: string
+          enum:
+          - daily
+          - weekly
+          - monthly
+          default: daily
+        example: daily
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Performance metrics retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PerformanceMetricsResponse'
+              examples:
+                ListPerformanceMetrics200Example:
+                  summary: Default listPerformanceMetrics 200 response
+                  x-microcks-default: true
+                  value:
+                    metrics:
+                    - date: '2026-03-15'
+                      campaignId: '500123'
+                      impressions: 45000
+                      clicks: 675
+                      conversions: 34
+                      spend: 1250.0
+                      roas: 4.2
+                      clickThroughRate: 0.015
+                    total: 1
+        '400':
+          description: Bad request - invalid date range or parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      title: Error Response
+      description: Standard error response object.
+      properties:
+        error:
+          type: string
+          description: Error code identifier.
+          example: UNAUTHORIZED
+        message:
+          type: string
+          description: Human-readable error message.
+          example: Invalid or missing bearer token.
+        statusCode:
+          type: integer
+          description: HTTP status code.
+          example: 401
+    PerformanceMetricsResponse:
+      type: object
+      title: Performance Metrics Response
+      description: Collection of performance metric data points.
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/PerformanceMetric'
+          description: Array of performance metric data points.
+        total:
+          type: integer
+          description: Total number of metric records returned.
+          example: 31
+    PerformanceMetric:
+      type: object
+      title: Performance Metric
+      description: Performance metrics for an advertising campaign at a given time period.
+      properties:
+        date:
+          type: string
+          format: date
+          description: Date of the metric data point.
+          example: '2026-03-15'
+        campaignId:
+          type: string
+          description: Campaign identifier associated with these metrics.
+          example: '500123'
+        impressions:
+          type: integer
+          description: Number of ad impressions served.
+          example: 45000
+        clicks:
+          type: integer
+          description: Number of ad clicks recorded.
+          example: 675
+        conversions:
+          type: integer
+          description: Number of conversions attributed to the campaign.
+          example: 34
+        spend:
+          type: number
+          format: double
+          description: Total ad spend in USD for the period.
+          example: 1250.0
+        roas:
+          type: number
+          format: double
+          description: Return on ad spend ratio.
+          example: 4.2
+        clickThroughRate:
+          type: number
+          format: double
+          description: Click-through rate as a decimal (clicks / impressions).
+          example: 0.015
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication via Azure AD OAuth2.

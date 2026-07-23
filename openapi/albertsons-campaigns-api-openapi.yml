@@ -1,0 +1,338 @@
+openapi: 3.1.0
+info:
+  title: Albertsons Media Collective Audiences Campaigns API
+  description: The Albertsons Media Collective API enables advertisers to integrate with Albertsons retail media network for campaign management and performance analytics. The API provides near-real-time access to campaign performance data, allowing advertisers to bring data into their own measurement models for analysis. Supported via the Albertsons developer portal built on Microsoft Azure API Management.
+  version: '1.0'
+  contact:
+    name: Albertsons Media Collective
+    url: https://portal-prod.apim.azwestus.stratus.albertsons.com/
+  x-generated-from: documentation
+servers:
+- url: https://api.albertsons.com
+  description: Production API server
+tags:
+- name: Campaigns
+  description: Manage advertising campaigns on the Albertsons Media Collective.
+paths:
+  /campaigns:
+    get:
+      operationId: listCampaigns
+      summary: Albertsons Media Collective List Campaigns
+      description: Retrieves a list of advertising campaigns configured on the Albertsons Media Collective platform with status, budget, and targeting details.
+      tags:
+      - Campaigns
+      parameters:
+      - name: status
+        in: query
+        description: Filter campaigns by status (active, paused, completed, draft).
+        schema:
+          type: string
+          enum:
+          - active
+          - paused
+          - completed
+          - draft
+        example: active
+      - name: limit
+        in: query
+        description: Maximum number of campaigns to return.
+        schema:
+          type: integer
+          default: 20
+          maximum: 100
+        example: 20
+      - name: offset
+        in: query
+        description: Number of campaigns to skip for pagination.
+        schema:
+          type: integer
+          default: 0
+        example: 0
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: List of campaigns retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CampaignListResponse'
+              examples:
+                ListCampaigns200Example:
+                  summary: Default listCampaigns 200 response
+                  x-microcks-default: true
+                  value:
+                    campaigns:
+                    - campaignId: '500123'
+                      name: Spring EV Battery Promotion
+                      status: active
+                      budget: 50000.0
+                      startDate: '2026-03-01'
+                      endDate: '2026-05-31'
+                      impressions: 1250000
+                      clicks: 18750
+                    total: 1
+                    limit: 20
+                    offset: 0
+        '401':
+          description: Unauthorized - invalid or missing bearer token.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '403':
+          description: Forbidden - insufficient permissions.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          description: Internal server error.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+    post:
+      operationId: createCampaign
+      summary: Albertsons Media Collective Create Campaign
+      description: Creates a new advertising campaign on the Albertsons Media Collective platform with specified budget, targeting, and scheduling parameters.
+      tags:
+      - Campaigns
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateCampaignRequest'
+            examples:
+              CreateCampaignRequestExample:
+                summary: Default createCampaign request
+                x-microcks-default: true
+                value:
+                  name: Summer Grocery Promotion
+                  budget: 25000.0
+                  startDate: '2026-06-01'
+                  endDate: '2026-08-31'
+                  targetAudienceIds:
+                  - aud-001
+                  - aud-002
+      responses:
+        '201':
+          description: Campaign created successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+              examples:
+                CreateCampaign201Example:
+                  summary: Default createCampaign 201 response
+                  x-microcks-default: true
+                  value:
+                    campaignId: '500124'
+                    name: Summer Grocery Promotion
+                    status: draft
+                    budget: 25000.0
+                    startDate: '2026-06-01'
+                    endDate: '2026-08-31'
+                    impressions: 0
+                    clicks: 0
+        '400':
+          description: Bad request - invalid campaign parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+  /campaigns/{campaignId}:
+    get:
+      operationId: getCampaign
+      summary: Albertsons Media Collective Get Campaign
+      description: Retrieves details for a specific advertising campaign by its unique identifier, including status, budget utilization, and targeting configuration.
+      tags:
+      - Campaigns
+      parameters:
+      - name: campaignId
+        in: path
+        required: true
+        description: Unique identifier of the campaign.
+        schema:
+          type: string
+        example: '500123'
+      security:
+      - bearerAuth: []
+      responses:
+        '200':
+          description: Campaign details retrieved successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Campaign'
+              examples:
+                GetCampaign200Example:
+                  summary: Default getCampaign 200 response
+                  x-microcks-default: true
+                  value:
+                    campaignId: '500123'
+                    name: Spring EV Battery Promotion
+                    status: active
+                    budget: 50000.0
+                    startDate: '2026-03-01'
+                    endDate: '2026-05-31'
+                    impressions: 1250000
+                    clicks: 18750
+        '404':
+          description: Campaign not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      title: Error Response
+      description: Standard error response object.
+      properties:
+        error:
+          type: string
+          description: Error code identifier.
+          example: UNAUTHORIZED
+        message:
+          type: string
+          description: Human-readable error message.
+          example: Invalid or missing bearer token.
+        statusCode:
+          type: integer
+          description: HTTP status code.
+          example: 401
+    Campaign:
+      type: object
+      title: Campaign
+      description: An advertising campaign on the Albertsons Media Collective platform.
+      properties:
+        campaignId:
+          type: string
+          description: Unique identifier of the campaign.
+          example: '500123'
+        name:
+          type: string
+          description: Display name of the campaign.
+          example: Spring Grocery Promotion
+        status:
+          type: string
+          enum:
+          - active
+          - paused
+          - completed
+          - draft
+          description: Current status of the campaign.
+          example: active
+        budget:
+          type: number
+          format: double
+          description: Total budget allocated to the campaign in USD.
+          example: 50000.0
+        startDate:
+          type: string
+          format: date
+          description: Campaign start date in ISO 8601 format.
+          example: '2026-03-01'
+        endDate:
+          type: string
+          format: date
+          description: Campaign end date in ISO 8601 format.
+          example: '2026-05-31'
+        impressions:
+          type: integer
+          description: Total impressions delivered for the campaign.
+          example: 1250000
+        clicks:
+          type: integer
+          description: Total clicks recorded for the campaign.
+          example: 18750
+    CampaignListResponse:
+      type: object
+      title: Campaign List Response
+      description: Paginated list of campaigns.
+      properties:
+        campaigns:
+          type: array
+          items:
+            $ref: '#/components/schemas/Campaign'
+          description: Array of campaign objects.
+        total:
+          type: integer
+          description: Total number of campaigns matching the query.
+          example: 42
+        limit:
+          type: integer
+          description: Maximum number of results returned.
+          example: 20
+        offset:
+          type: integer
+          description: Number of results skipped.
+          example: 0
+    CreateCampaignRequest:
+      type: object
+      title: Create Campaign Request
+      description: Request body for creating a new advertising campaign.
+      required:
+      - name
+      - budget
+      - startDate
+      - endDate
+      properties:
+        name:
+          type: string
+          description: Display name for the new campaign.
+          example: Summer Grocery Promotion
+        budget:
+          type: number
+          format: double
+          description: Total budget allocated to the campaign in USD.
+          example: 25000.0
+        startDate:
+          type: string
+          format: date
+          description: Campaign start date (ISO 8601).
+          example: '2026-06-01'
+        endDate:
+          type: string
+          format: date
+          description: Campaign end date (ISO 8601).
+          example: '2026-08-31'
+        targetAudienceIds:
+          type: array
+          items:
+            type: string
+          description: List of audience segment IDs for targeting.
+          example:
+          - aud-001
+          - aud-002
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication via Azure AD OAuth2.

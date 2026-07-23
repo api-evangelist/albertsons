@@ -1,0 +1,180 @@
+openapi: 3.1.0
+info:
+  title: Albertsons Media Collective Audiences Reporting API
+  description: The Albertsons Media Collective API enables advertisers to integrate with Albertsons retail media network for campaign management and performance analytics. The API provides near-real-time access to campaign performance data, allowing advertisers to bring data into their own measurement models for analysis. Supported via the Albertsons developer portal built on Microsoft Azure API Management.
+  version: '1.0'
+  contact:
+    name: Albertsons Media Collective
+    url: https://portal-prod.apim.azwestus.stratus.albertsons.com/
+  x-generated-from: documentation
+servers:
+- url: https://api.albertsons.com
+  description: Production API server
+tags:
+- name: Reporting
+  description: Generate and retrieve performance reports.
+paths:
+  /reports:
+    post:
+      operationId: generateReport
+      summary: Albertsons Media Collective Generate Report
+      description: Generates a custom performance report for advertising campaigns with specified dimensions, metrics, and date ranges for export to external analytics dashboards.
+      tags:
+      - Reporting
+      security:
+      - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/ReportRequest'
+            examples:
+              GenerateReportRequestExample:
+                summary: Default generateReport request
+                x-microcks-default: true
+                value:
+                  campaignIds:
+                  - '500123'
+                  startDate: '2026-03-01'
+                  endDate: '2026-03-31'
+                  dimensions:
+                  - date
+                  - campaign
+                  metrics:
+                  - impressions
+                  - clicks
+                  - roas
+                  format: json
+      responses:
+        '200':
+          description: Report generated successfully.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ReportResponse'
+              examples:
+                GenerateReport200Example:
+                  summary: Default generateReport 200 response
+                  x-microcks-default: true
+                  value:
+                    reportId: rpt-abc123
+                    status: completed
+                    createdAt: '2026-04-19T10:30:00Z'
+                    downloadUrl: https://api.albertsons.com/reports/rpt-abc123/download
+        '400':
+          description: Bad request - invalid report parameters.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          description: Unauthorized.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      x-microcks-operation:
+        delay: 0
+        dispatcher: FALLBACK
+components:
+  schemas:
+    ErrorResponse:
+      type: object
+      title: Error Response
+      description: Standard error response object.
+      properties:
+        error:
+          type: string
+          description: Error code identifier.
+          example: UNAUTHORIZED
+        message:
+          type: string
+          description: Human-readable error message.
+          example: Invalid or missing bearer token.
+        statusCode:
+          type: integer
+          description: HTTP status code.
+          example: 401
+    ReportResponse:
+      type: object
+      title: Report Response
+      description: Response containing the generated report details.
+      properties:
+        reportId:
+          type: string
+          description: Unique identifier for the generated report.
+          example: rpt-abc123
+        status:
+          type: string
+          enum:
+          - pending
+          - processing
+          - completed
+          - failed
+          description: Current status of the report generation.
+          example: completed
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the report was created.
+          example: '2026-04-19T10:30:00Z'
+        downloadUrl:
+          type: string
+          format: uri
+          description: URL to download the completed report.
+          example: https://api.albertsons.com/reports/rpt-abc123/download
+    ReportRequest:
+      type: object
+      title: Report Request
+      description: Request body for generating a custom performance report.
+      required:
+      - startDate
+      - endDate
+      properties:
+        campaignIds:
+          type: array
+          items:
+            type: string
+          description: List of campaign IDs to include in the report. Empty returns all.
+          example:
+          - '500123'
+        startDate:
+          type: string
+          format: date
+          description: Start date for the report period (ISO 8601).
+          example: '2026-03-01'
+        endDate:
+          type: string
+          format: date
+          description: End date for the report period (ISO 8601).
+          example: '2026-03-31'
+        dimensions:
+          type: array
+          items:
+            type: string
+          description: Dimensions to group report data by.
+          example:
+          - date
+          - campaign
+        metrics:
+          type: array
+          items:
+            type: string
+          description: Metrics to include in the report.
+          example:
+          - impressions
+          - clicks
+          - roas
+        format:
+          type: string
+          enum:
+          - json
+          - csv
+          description: Output format for the report.
+          example: json
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      description: Bearer token authentication via Azure AD OAuth2.
