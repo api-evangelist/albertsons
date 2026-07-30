@@ -1,45 +1,110 @@
 aid: albertsons
+accessModel:
+  pricing: unknown
+  onboarding: self-serve
+  trial: false
+  try_now: false
+  public: false
+  label: Self-serve signup
+  confidence: high
+  source:
+  - plans
+  - authentication
+  generated: '2026-07-22'
+  method: derived
+image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/albertsons.png
 url: https://raw.githubusercontent.com/api-evangelist/albertsons/refs/heads/main/apis.yml
 created: '2026-03-23'
 modified: '2026-05-19'
 apis:
-  - aid: albertsons:retail-media-api
-    name: Albertsons Media Collective API
-    tags:
-      - Advertising
-      - Grocery
-      - Retail
-      - Retail Media
-      - Campaigns
-      - Analytics
-    baseURL: https://api.albertsons.com
-    humanURL: https://portal-prod.apim.azwestus.stratus.albertsons.com/
-    description: >-
-      The Albertsons Media Collective API enables advertisers to integrate with Albertsons retail media network for
-      campaign management and performance analytics. The API provides near-real-time access to campaign performance
-      data, allowing advertisers to bring data into their own measurement models for analysis. The developer portal,
-      built on Microsoft Azure API Management, provides API documentation, code samples, and an interactive console for
-      testing.
-    properties:
-      - type: Documentation
-        url: https://portal-prod.apim.azwestus.stratus.albertsons.com/
-      - type: OpenAPI
-        url: openapi/albertsons-retail-media-api-openapi.yml
-      - type: JSONSchema
-        url: json-schema/retail-media-api-campaign-schema.json
-        title: Campaign Schema
-      - type: JSONSchema
-        url: json-schema/retail-media-api-performance-metric-schema.json
-        title: Performance Metric Schema
-      - type: JSONSchema
-        url: json-schema/retail-media-api-audience-schema.json
-        title: Audience Schema
-      - type: JSONSchema
-        url: json-schema/retail-media-api-report-request-schema.json
-        title: Report Request Schema
-      - type: JSONSchema
-        url: json-schema/retail-media-api-report-response-schema.json
-        title: Report Response Schema
+- aid: albertsons:albertsons-audiences-api
+  name: albertsons Audiences API
+  description: Manage audience targeting segments for retail media campaigns.
+  humanURL: https://portal-prod.apim.azwestus.stratus.albertsons.com/
+  baseURL: https://api.albertsons.com
+  tags:
+  - Audiences
+  properties:
+  - type: OpenAPI
+    url: openapi/albertsons-audiences-api-openapi.yml
+  - type: Documentation
+    url: https://portal-prod.apim.azwestus.stratus.albertsons.com/
+  - type: JSONSchema
+    url: json-schema/retail-media-api-campaign-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-performance-metric-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-audience-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-report-request-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-report-response-schema.json
+- aid: albertsons:albertsons-campaigns-api
+  name: albertsons Campaigns API
+  description: Manage advertising campaigns on the Albertsons Media Collective.
+  humanURL: https://portal-prod.apim.azwestus.stratus.albertsons.com/
+  baseURL: https://api.albertsons.com
+  tags:
+  - Campaigns
+  properties:
+  - type: OpenAPI
+    url: openapi/albertsons-campaigns-api-openapi.yml
+  - type: Documentation
+    url: https://portal-prod.apim.azwestus.stratus.albertsons.com/
+  - type: JSONSchema
+    url: json-schema/retail-media-api-campaign-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-performance-metric-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-audience-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-report-request-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-report-response-schema.json
+- aid: albertsons:albertsons-performance-api
+  name: albertsons Performance API
+  description: Access campaign performance metrics and analytics.
+  humanURL: https://portal-prod.apim.azwestus.stratus.albertsons.com/
+  baseURL: https://api.albertsons.com
+  tags:
+  - Performance
+  properties:
+  - type: OpenAPI
+    url: openapi/albertsons-performance-api-openapi.yml
+  - type: Documentation
+    url: https://portal-prod.apim.azwestus.stratus.albertsons.com/
+  - type: JSONSchema
+    url: json-schema/retail-media-api-campaign-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-performance-metric-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-audience-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-report-request-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-report-response-schema.json
+- aid: albertsons:albertsons-reporting-api
+  name: albertsons Reporting API
+  description: Generate and retrieve performance reports.
+  humanURL: https://portal-prod.apim.azwestus.stratus.albertsons.com/
+  baseURL: https://api.albertsons.com
+  tags:
+  - Reporting
+  properties:
+  - type: OpenAPI
+    url: openapi/albertsons-reporting-api-openapi.yml
+  - type: Documentation
+    url: https://portal-prod.apim.azwestus.stratus.albertsons.com/
+  - type: JSONSchema
+    url: json-schema/retail-media-api-campaign-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-performance-metric-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-audience-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-report-request-schema.json
+  - type: JSONSchema
+    url: json-schema/retail-media-api-report-response-schema.json
 common:
   - type: AgenticAccess
     url: agentic-access/albertsons-agentic-access.yml
