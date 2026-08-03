@@ -1,0 +1,20 @@
+{
+  "provider": "albertsons",
+  "sources": [
+    "albertsons-audiences-api-openapi.yml",
+    "albertsons-campaigns-api-openapi.yml",
+    "albertsons-performance-api-openapi.yml",
+    "albertsons-reporting-api-openapi.yml"
+  ],
+  "outputs": [
+    "albertsons-audiences-api-openapi.yml",
+    "albertsons-campaigns-api-openapi.yml",
+    "albertsons-performance-api-openapi.yml",
+    "albertsons-reporting-api-openapi.yml"
+  ],
+  "archived": [],
+  "errors": [],
+  "warnings": [],
+  "notes": [],
+  "skipped": []
+}
