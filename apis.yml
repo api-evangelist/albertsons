@@ -1,21 +1,27 @@
 aid: albertsons
 accessModel:
   pricing: unknown
-  onboarding: self-serve
+  onboarding: request
   trial: false
   try_now: false
   public: false
-  label: Self-serve signup
+  label: Request access
   confidence: high
   source:
-  - plans
-  - authentication
-  generated: '2026-07-22'
-  method: derived
+  - probe
+  generated: '2026-08-13'
+  method: probed
+  # Hand-corrected 2026-08-13. derive-access-model.py returns `self-serve` here
+  # because authentication/albertsons-authentication.yml declares a bearer scheme
+  # — but that scheme was derived from an AE-generated OpenAPI, and there is no
+  # signup surface of any kind: the Azure APIM developer portal host does not
+  # resolve (SERVFAIL on the stratus.albertsons.com zone) and api.albertsons.com
+  # has TCP 80/443 filtered. Access follows a Media Collective advertising
+  # agreement. See x-coverage and lifecycle/albertsons-lifecycle.yml.
 image: https://kinlane-images.s3.amazonaws.com/shared/apis-json/icons/albertsons.png
 url: https://raw.githubusercontent.com/api-evangelist/albertsons/refs/heads/main/apis.yml
 created: '2026-03-23'
-modified: '2026-05-19'
+modified: '2026-08-13'
 apis:
 - aid: albertsons:albertsons-audiences-api
   name: albertsons Audiences API
@@ -121,9 +127,15 @@ common:
   - type: Authentication
     url: https://portal-prod.apim.azwestus.stratus.albertsons.com/
   - type: TermsOfService
-    url: https://www.albertsons.com/terms-and-conditions/
+    url: https://www.albertsons.com/terms-of-use.html
   - type: PrivacyPolicy
-    url: https://www.albertsons.com/privacy-policy/
+    url: https://www.albertsonscompanies.com/about-us/our-policies/privacy-policy.html
+  - type: Support
+    url: https://www.albertsons.com/contact-us.html
+  - type: Lifecycle
+    url: lifecycle/albertsons-lifecycle.yml
+  - type: LLMsTxt
+    url: llms/albertsons-llms.txt
   - type: SpectralRules
     url: rules/albertsons-spectral-rules.yml
   - type: Vocabulary
@@ -197,3 +209,30 @@ tags:
 maintainers:
   - FN: API Evangelist
     email: info@apievangelist.com
+x-enrichment:
+  date: '2026-08-13'
+  status: minimal
+  artifacts_added: 5
+  pass: local-v1
+x-coverage:
+  state: gated
+  reason: sales-gate
+  detail: >-
+    The Albertsons Media Collective API announced 2025-01-07 is issued only inside an
+    advertising agreement, and the Azure API Management developer portal that fronted it
+    is gone — the entire stratus.albertsons.com DNS zone now returns SERVFAIL from every
+    public resolver, and the recorded base host api.albertsons.com is a stale record
+    pointing at a decommissioned MyWebGrocer address with TCP 80 and 443 filtered, so
+    there is no public reference or spec left to read.
+  evidence:
+    - url: https://portal-prod.apim.azwestus.stratus.albertsons.com/
+      status: 0
+    - url: https://api.albertsons.com/openapi.json
+      status: 0
+    - url: https://www.albertsons.com/llms.txt
+      status: 404
+    - url: https://www.albertsonsmediacollective.com/openapi.json
+      status: 404
+    - url: https://www.albertsonsmediacollective.com/.well-known/agent-card.json
+      status: 200
+  checked: '2026-08-13'
