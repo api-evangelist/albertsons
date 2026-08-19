@@ -1,0 +1,62 @@
+generated: '2026-08-13'
+method: searched
+source: >-
+  registry.npmjs.org (name lookup + full-text search), pypi.org/pypi/*/json,
+  api.github.com org and repository search, and the Albertsons Media Collective
+  public site.
+description: >-
+  Albertsons Companies publishes no first-party client libraries. The Albertsons
+  Media Collective API announced 2025-01-07 is delivered to contracted advertisers
+  directly; there is no public SDK, no public developer portal reachable today,
+  and no first-party GitHub organization. No SDKs pointer is wired into apis.yml
+  — this file records a measured absence.
+package_count: 0
+official_package_count: 0
+packages: []
+registries_checked:
+  - registry: npm
+    endpoint: https://registry.npmjs.org
+    queries:
+      - name: albertsons
+        status: 404
+      - name: albertsons-api
+        status: 404
+      - name: albertsons-media-collective
+        status: 404
+      - name: "@albertsons/sdk"
+        status: 404
+    fulltext_search: https://registry.npmjs.org/-/v1/search?text=albertsons
+    fulltext_results: 4
+    fulltext_note: >-
+      All four hits are third-party. "@striderlabs/mcp-safeway" (published
+      2026-06-18) is an unaffiliated MCP connector that drives the Safeway /
+      Albertsons consumer grocery-delivery site via browser automation, not an
+      Albertsons-published package and not a client for the Media Collective API.
+  - registry: pypi
+    endpoint: https://pypi.org/pypi
+    queries:
+      - name: albertsons
+        status: 404
+      - name: albertsons-api
+        status: 404
+  - registry: github
+    endpoint: https://api.github.com/orgs
+    queries:
+      - name: albertsons
+        status: 404
+      - name: albertsons-companies
+        status: 404
+      - name: albertsonscompanies
+        status: 404
+      - name: albertsons-media-collective
+        status: 404
+    note: >-
+      No Albertsons-owned GitHub organization exists. Repository search returns
+      164 repos named "Albertsons"; every one inspected belongs to an individual
+      or a consultancy (interview exercises, migration projects, a 2021 vaccine
+      slot checker), none to the company.
+notes: >-
+  Not checked against Maven Central, NuGet, pkg.go.dev, RubyGems, Packagist or
+  crates.io — with no developer portal, no GitHub org and nothing on npm or PyPI,
+  there is no SDK program to find. Re-check if Albertsons ever republishes a
+  reachable Media Collective developer portal.

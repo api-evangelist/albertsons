@@ -4,8 +4,15 @@ schema: https://raw.githubusercontent.com/api-evangelist/interface-research/main
 provider: albertsons
 providerId: albertsons
 created: '2026-05-04'
-modified: '2026-05-05'
-reconciled: false
+# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
+# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
+# Corrected 2026-08-13: the single "Retail Media / CPG Partner Agreement" plan
+# entry this file previously carried was a scaffold shell invented by that sweep
+# — its own notes said so. It has been removed. Albertsons publishes no plans,
+# so the honest value is plan_count: 0.
+method: searched
+modified: '2026-08-13'
+reconciled: true
 tags:
   - Grocery
   - Retail
@@ -23,31 +30,18 @@ description: Albertsons does not operate a public developer portal with publishe
 sources:
   - https://www.albertsons.com
   - https://www.albertsonsmediacollective.com
-notes: No public API pricing surface. Plans below are placeholder partner-agreement shells; replace with
-  contracted Media Collective / partner terms once known.
-plans:
-  - id: albertsons-partner
-    name: Retail Media / CPG Partner Agreement
-    type: enterprise
-    description: Custom agreement covering retail-media campaigns, audience analytics, and CPG-partner
-      data-collaboration APIs. Dimensioned by media spend or partner subscription.
-    entries:
-      - label: Partner Subscription
-        description: Negotiated annual subscription / media-spend commit
-        name: partner_subscription
-        type: subscription
-        metric: contract
-        limit: -1
-        timeFrame: year
-        geo: US
-        unit: 1
-        price: contact sales
-        userMultiplied: false
-    elements:
-      - name: Retail Media Campaign API
-      - name: Audience Analytics API
-      - name: CPG Partner Data API
-      - name: Partner Account Management
+  - https://www.albertsonscompanies.com/newsroom/press-releases/news-details/2025/Albertsons-Media-Collective-Enables-Advertisers-to-Measure-Performance-with-Greater-Ease-and-Frictionless-Access-Via-New-API-Offering-and-TransUnion-Partnership/default.aspx
+plan_count: 0
+notes: >-
+  Verified 2026-08-13. Albertsons publishes no API plans or pricing of any kind —
+  not a tier list, not a "contact us" pricing page for the API. The 2025-01-07
+  Albertsons Media Collective announcement says the API is available to
+  participating advertisers and names no commercial terms. There is no reachable
+  developer portal to sign up through: the recorded Azure API Management portal
+  host does not resolve (SERVFAIL on the whole stratus.albertsons.com zone) and
+  api.albertsons.com is a stale record with all ports filtered. Access is
+  negotiated inside a Media Collective advertising agreement.
+plans: []
 maintainers:
   - FN: Kin Lane
     email: kin@apievangelist.com

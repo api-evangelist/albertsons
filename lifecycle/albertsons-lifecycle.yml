@@ -1,0 +1,104 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live DNS (8.8.8.8 / 1.1.1.1 / 9.9.9.9) and HTTP probes of every host recorded in
+  apis.yml and in openapi/*, plus the Albertsons Media Collective API announcement
+  (https://www.albertsonscompanies.com/newsroom/press-releases/news-details/2025/Albertsons-Media-Collective-Enables-Advertisers-to-Measure-Performance-with-Greater-Ease-and-Frictionless-Access-Via-New-API-Offering-and-TransUnion-Partnership/default.aspx,
+  2025-01-07).
+description: >-
+  Albertsons publishes no API versioning policy, no deprecation policy, no
+  Sunset/Deprecation header commitment, no SLA and no status page. Neither a
+  StatusPage nor a Deprecation pointer is wired into apis.yml — those types assert
+  the provider publishes the page, and it does not.
+
+  The material finding in this file is host verification: BOTH hosts this catalog
+  records as the Albertsons API surface are dead as of 2026-08-13.
+versioning:
+  scheme: null
+  mechanism: null
+  docs: null
+  notes: >-
+    No public versioning policy. The only public statement about the API is the
+    2025-01-07 announcement, which describes near-real-time campaign performance
+    access for Media Collective advertisers and names no version, no base URL and
+    no documentation location.
+deprecation:
+  policy_url: null
+  changelog: null
+  sunset_header: false
+  notes: No published deprecation policy and no RFC 8594 Sunset/Deprecation commitment.
+sla:
+  url: null
+  public_uptime_target: null
+  notes: No public SLA. Availability terms, if any, sit inside Media Collective advertiser agreements.
+status_page: null
+host_verification:
+  checked: '2026-08-13'
+  summary: >-
+    Every host on the recorded API surface fails to answer. This is the
+    dead-host test applied to a spec that is itself AE-generated
+    (openapi/*.yml carry info.x-generated-from: documentation), so nothing in
+    openapi/ should be read as a provider-published contract.
+  hosts:
+    - host: portal-prod.apim.azwestus.stratus.albertsons.com
+      role: Developer portal (apis.yml humanURL, Portal, Documentation, Authentication)
+      resolves: false
+      dns_status: SERVFAIL
+      resolvers_tested:
+        - 8.8.8.8
+        - 1.1.1.1
+        - 9.9.9.9
+      http_status: null
+      note: >-
+        The whole stratus.albertsons.com zone SERVFAILs. It is delegated to
+        ns5.safeway.com, ns6.safeway.com, ns7.safeway.com and ns8.safeway.com,
+        which do not answer for it. Search engines still carry the portal (and a
+        sibling portal-perf.apim.azwestus.stratus.albertsons.com/docs/services),
+        so the Azure API Management developer portal existed and has since been
+        withdrawn or moved behind a private zone. Broken delegation to a
+        third-party nameserver set is also a subdomain-takeover-shaped exposure
+        worth flagging to the provider.
+    - host: api.albertsons.com
+      role: API base URL (apis.yml baseURL, OpenAPI servers[])
+      resolves: true
+      a_record: 67.217.96.64
+      ptr: 67-217-96-64.mywebgrocer.com
+      tcp_443: filtered
+      tcp_80: filtered
+      http_status: null
+      note: >-
+        Resolves to a MyWebGrocer address. MyWebGrocer was the legacy grocery
+        e-commerce vendor Albertsons banners used before the current platform;
+        the A record survives the platform it pointed at. Every HTTP and HTTPS
+        request to /, /openapi.json, /swagger.json, /api-docs, /docs, /graphql,
+        /mcp and /.well-known/agent-card.json timed out after 20s. This is a
+        stale DNS record, not a live API base.
+    - host: www.albertsons.com
+      role: Corporate / consumer site
+      resolves: true
+      http_status: 200
+      note: Live consumer storefront behind Imperva/Incapsula. No API surface.
+    - host: www.albertsonsmediacollective.com
+      role: Retail media network marketing site
+      resolves: true
+      http_status: 403
+      note: >-
+        Cloudflare interstitial ("Just a moment...") to automated clients. Q4 Inc.
+        investor-relations CMS. Marketing and contact pages only; no developer
+        documentation, no spec, no console.
+contract_provenance:
+  openapi_first_party: false
+  marker: info.x-generated-from = documentation
+  files:
+    - openapi/_original/albertsons-retail-media-api-openapi.yml
+    - openapi/albertsons-audiences-api-openapi.yml
+    - openapi/albertsons-campaigns-api-openapi.yml
+    - openapi/albertsons-performance-api-openapi.yml
+    - openapi/albertsons-reporting-api-openapi.yml
+  note: >-
+    These specs were modeled by API Evangelist from press coverage of the
+    2025-01-07 announcement, not harvested from Albertsons. Their six operations
+    (listAudiences, listCampaigns, createCampaign, getCampaign,
+    listPerformanceMetrics, generateReport) and their https://api.albertsons.com
+    server are AE constructions. No artifact in this repo has been derived from
+    them during the 2026-08-13 enrichment pass, and none should be.

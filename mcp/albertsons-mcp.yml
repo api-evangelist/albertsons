@@ -1,0 +1,40 @@
+generated: '2026-08-13'
+method: searched
+status: none
+source: >-
+  registry.npmjs.org full-text search, api.github.com org + repo search, and live
+  probes of https://www.albertsons.com/mcp, https://api.albertsons.com/mcp and
+  https://www.albertsonsmediacollective.com/mcp.
+description: >-
+  Albertsons Companies ships no MCP server, hosted or local. No MCPServer pointer
+  is wired into apis.yml — this file records a measured absence.
+
+  No candidate tool list was derived. The OpenAPI files in openapi/ are
+  AE-generated (info.x-generated-from: documentation) and describe an
+  https://api.albertsons.com host that does not answer, so deriving MCP tools from
+  them would manufacture an agent surface for an API nobody can call. See
+  lifecycle/albertsons-lifecycle.yml.
+deployment:
+  mode: none
+  auth: unknown
+  verified: searched
+probes:
+  - url: https://www.albertsons.com/mcp
+    status: 404
+  - url: https://www.albertsonsmediacollective.com/mcp
+    status: 403
+    note: Cloudflare interstitial; the site serves no MCP surface.
+  - url: https://api.albertsons.com/mcp
+    status: null
+    note: Connection timed out after 20s; TCP 443 filtered.
+third_party:
+  - name: "@striderlabs/mcp-safeway"
+    registry: npm
+    published: '2026-06-18'
+    official: false
+    note: >-
+      Unaffiliated MCP connector that drives the Safeway / Albertsons consumer
+      grocery-delivery website via browser automation. Not published by
+      Albertsons, not built on the Media Collective API, and recorded here only so
+      a future pass does not mistake it for a first-party server.
+tools: []

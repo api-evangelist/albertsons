@@ -1,0 +1,59 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Albertsons Media Collective Audiences Performance API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Performance",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Albertsons Media Collective List Performance Metrics",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.albertsons.com/performance",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "500123",
+                "type": "query",
+                "description": "Filter metrics by campaign identifier."
+              },
+              {
+                "name": "startDate",
+                "value": "2026-03-01",
+                "type": "query",
+                "description": "Start date for metrics window (ISO 8601 date format)."
+              },
+              {
+                "name": "endDate",
+                "value": "2026-03-31",
+                "type": "query",
+                "description": "End date for metrics window (ISO 8601 date format)."
+              },
+              {
+                "name": "granularity",
+                "value": "daily",
+                "type": "query",
+                "description": "Time granularity for metrics aggregation."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves near-real-time performance metrics for active and completed advertising campaigns, including impressions, clicks, conversions, and return on ad spend (ROAS)."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

@@ -1,0 +1,47 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Albertsons Media Collective Audiences API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Audiences",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Albertsons Media Collective List Audiences",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.albertsons.com/audiences",
+            "params": [
+              {
+                "name": "category",
+                "value": "grocery",
+                "type": "query",
+                "description": "Filter audiences by product category."
+              },
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of audience segments to return."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of audience segments available for campaign targeting on the Albertsons Media Collective, based on shopper purchase behavior and demographic data."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

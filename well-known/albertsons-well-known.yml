@@ -1,0 +1,113 @@
+generated: '2026-08-13'
+method: probed
+source: >-
+  Live HTTP probes of every host named in apis.yml (baseURL, humanURL, Website)
+  and in the OpenAPI servers[] block, plus the Albertsons Media Collective and
+  Albertsons Companies corporate hosts.
+description: >-
+  Nothing was found. Every /.well-known/ path probed on every Albertsons host
+  either 404s or is answered by a catch-all. NO WellKnown or SecurityTxt pointer
+  is wired into apis.yml as a result — this file records a measured absence, not
+  a served discovery surface.
+
+  Two failure modes are worth naming. (1) www.albertsons.com returns HTTP 404 with
+  a 162 KB text/html store page for every /.well-known/ path — a normal miss.
+  (2) www.albertsonsmediacollective.com and www.albertsonscompanies.com (both on
+  the Q4 Inc. investor-relations CMS behind Cloudflare) answer HTTP 200 with an
+  11-byte text/html body reading exactly "Invalid key" for EVERY /.well-known/
+  path, including paths that cannot exist. That is a soft-200 catch-all, not a
+  document, and it is recorded as a miss.
+
+  (3) The two hosts the catalog records as the API surface could not be probed at
+  all. portal-prod.apim.azwestus.stratus.albertsons.com does not resolve —
+  the entire stratus.albertsons.com zone returns SERVFAIL from 8.8.8.8, 1.1.1.1
+  and 9.9.9.9. api.albertsons.com resolves to 67.217.96.64, which reverse-resolves
+  to 67-217-96-64.mywebgrocer.com (MyWebGrocer, a decommissioned grocery
+  e-commerce vendor), and TCP 80 and 443 are both filtered — every request times
+  out. See lifecycle/albertsons-lifecycle.yml for the host verification detail.
+hosts:
+  - host: https://www.albertsons.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 404
+      - path: /.well-known/openid-configuration
+        status: 404
+      - path: /.well-known/oauth-authorization-server
+        status: 404
+      - path: /.well-known/api-catalog
+        status: 404
+      - path: /.well-known/ai-plugin.json
+        status: 404
+      - path: /.well-known/agent-card.json
+        status: 404
+      - path: /.well-known/agent.json
+        status: 404
+      - path: /llms.txt
+        status: 404
+  - host: https://www.albertsonsmediacollective.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        type: text/html
+        real_document: false
+        note: 11-byte body "Invalid key" — Q4 Inc. CMS catch-all, not a document.
+      - path: /.well-known/openid-configuration
+        status: 200
+        type: text/html
+        real_document: false
+        note: 11-byte body "Invalid key" — catch-all.
+      - path: /.well-known/api-catalog
+        status: 200
+        type: text/html
+        real_document: false
+        note: 11-byte body "Invalid key" — catch-all.
+      - path: /.well-known/agent-card.json
+        status: 200
+        type: text/html
+        real_document: false
+        note: 11-byte body "Invalid key" — catch-all. NOT an agent card.
+      - path: /.well-known/agent.json
+        status: 200
+        type: text/html
+        real_document: false
+        note: 11-byte body "Invalid key" — catch-all. NOT an agent card.
+      - path: /llms.txt
+        status: 404
+      - path: /openapi.json
+        status: 404
+  - host: https://www.albertsonscompanies.com
+    documents:
+      - path: /.well-known/security.txt
+        status: 200
+        type: text/html
+        real_document: false
+        note: 11-byte body "Invalid key" — catch-all.
+      - path: /.well-known/agent-card.json
+        status: 200
+        type: text/html
+        real_document: false
+        note: 11-byte body "Invalid key" — catch-all. NOT an agent card.
+      - path: /llms.txt
+        status: 404
+  - host: https://api.albertsons.com
+    unreachable: true
+    note: >-
+      DNS resolves to 67.217.96.64 (PTR 67-217-96-64.mywebgrocer.com) but TCP 80
+      and 443 are filtered; every probe timed out after 20s. No /.well-known/
+      path could be evaluated.
+    documents: []
+  - host: https://portal-prod.apim.azwestus.stratus.albertsons.com
+    unreachable: true
+    note: >-
+      NXDOMAIN / SERVFAIL. The stratus.albertsons.com zone is delegated to
+      ns5-ns8.safeway.com and returns SERVFAIL from every public resolver tested.
+      No /.well-known/ path could be evaluated.
+    documents: []
+summary:
+  hosts_probed: 5
+  hosts_unreachable: 2
+  paths_probed: 22
+  real_documents_found: 0
+  soft_200_catch_all: 9
+  wellknown_pointer_emitted: false
+  securitytxt_pointer_emitted: false

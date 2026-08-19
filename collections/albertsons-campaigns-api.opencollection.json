@@ -1,0 +1,95 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Albertsons Media Collective Audiences Campaigns API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Campaigns",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Albertsons Media Collective List Campaigns",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.albertsons.com/campaigns",
+            "params": [
+              {
+                "name": "status",
+                "value": "active",
+                "type": "query",
+                "description": "Filter campaigns by status (active, paused, completed, draft)."
+              },
+              {
+                "name": "limit",
+                "value": "20",
+                "type": "query",
+                "description": "Maximum number of campaigns to return."
+              },
+              {
+                "name": "offset",
+                "value": "0",
+                "type": "query",
+                "description": "Number of campaigns to skip for pagination."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves a list of advertising campaigns configured on the Albertsons Media Collective platform with status, budget, and targeting details."
+        },
+        {
+          "info": {
+            "name": "Albertsons Media Collective Create Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.albertsons.com/campaigns",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Creates a new advertising campaign on the Albertsons Media Collective platform with specified budget, targeting, and scheduling parameters."
+        },
+        {
+          "info": {
+            "name": "Albertsons Media Collective Get Campaign",
+            "type": "http"
+          },
+          "http": {
+            "method": "GET",
+            "url": "https://api.albertsons.com/campaigns/:campaignId",
+            "params": [
+              {
+                "name": "campaignId",
+                "value": "500123",
+                "type": "path",
+                "description": "Unique identifier of the campaign."
+              }
+            ],
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Retrieves details for a specific advertising campaign by its unique identifier, including status, budget utilization, and targeting configuration."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}

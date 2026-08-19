@@ -1,6 +1,7 @@
-generated: '2026-07-11'
+generated: '2026-08-13'
 method: derived
-source: openapi/albertsons-retail-media-api-openapi.yml
+source: openapi/albertsons-audiences-api-openapi.yml, openapi/albertsons-campaigns-api-openapi.yml,
+  openapi/albertsons-performance-api-openapi.yml, openapi/albertsons-reporting-api-openapi.yml
 summary:
   types:
   - http
@@ -10,4 +11,7 @@ schemes:
   scheme: bearer
   description: Bearer token authentication via Azure AD OAuth2.
   sources:
-  - openapi/albertsons-retail-media-api-openapi.yml
+  - openapi/albertsons-audiences-api-openapi.yml
+  - openapi/albertsons-campaigns-api-openapi.yml
+  - openapi/albertsons-performance-api-openapi.yml
+  - openapi/albertsons-reporting-api-openapi.yml

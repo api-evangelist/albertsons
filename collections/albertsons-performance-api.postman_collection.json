@@ -1,0 +1,280 @@
+{
+  "item": [
+    {
+      "id": "ad990347-970d-45d8-87cb-5932714c9424",
+      "name": "Performance",
+      "description": {
+        "content": "Access campaign performance metrics and analytics.",
+        "type": "text/plain"
+      },
+      "item": [
+        {
+          "id": "81099d9f-6e7f-478c-a10f-5f0a74bae5be",
+          "name": "Albertsons Media Collective List Performance Metrics",
+          "request": {
+            "name": "Albertsons Media Collective List Performance Metrics",
+            "description": {
+              "content": "Retrieves near-real-time performance metrics for active and completed advertising campaigns, including impressions, clicks, conversions, and return on ad spend (ROAS).",
+              "type": "text/plain"
+            },
+            "url": {
+              "path": [
+                "performance"
+              ],
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "query": [
+                {
+                  "disabled": false,
+                  "key": "campaignId",
+                  "value": "<string>",
+                  "description": "Filter metrics by campaign identifier."
+                },
+                {
+                  "disabled": false,
+                  "key": "startDate",
+                  "value": "<date>",
+                  "description": "Start date for metrics window (ISO 8601 date format)."
+                },
+                {
+                  "disabled": false,
+                  "key": "endDate",
+                  "value": "<date>",
+                  "description": "End date for metrics window (ISO 8601 date format)."
+                },
+                {
+                  "disabled": false,
+                  "key": "granularity",
+                  "value": "daily",
+                  "description": "Time granularity for metrics aggregation."
+                }
+              ],
+              "variable": []
+            },
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "method": "GET",
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}"
+                }
+              ]
+            }
+          },
+          "response": [
+            {
+              "id": "9d548936-cea6-461f-ab69-5a7ddbed4b4a",
+              "name": "Performance metrics retrieved successfully.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "performance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaignId",
+                      "value": "500123"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "2026-03-01"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "2026-03-31"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "daily"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "OK",
+              "code": 200,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"metrics\": [\n    {\n      \"date\": \"2026-03-15\",\n      \"campaignId\": \"500123\",\n      \"impressions\": 45000,\n      \"clicks\": 675,\n      \"conversions\": 34,\n      \"spend\": 1250,\n      \"roas\": 4.2,\n      \"clickThroughRate\": 0.015\n    }\n  ],\n  \"total\": 1\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "29759450-7c46-401d-8e6c-3aaf0d6f0f22",
+              "name": "Bad request - invalid date range or parameters.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "performance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaignId",
+                      "value": "500123"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "2026-03-01"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "2026-03-31"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "daily"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Bad Request",
+              "code": 400,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"UNAUTHORIZED\",\n  \"message\": \"Invalid or missing bearer token.\",\n  \"statusCode\": 401\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            },
+            {
+              "id": "4b12538d-5f2a-4875-ae1c-654b894de26f",
+              "name": "Unauthorized.",
+              "originalRequest": {
+                "url": {
+                  "path": [
+                    "performance"
+                  ],
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "query": [
+                    {
+                      "key": "campaignId",
+                      "value": "500123"
+                    },
+                    {
+                      "key": "startDate",
+                      "value": "2026-03-01"
+                    },
+                    {
+                      "key": "endDate",
+                      "value": "2026-03-31"
+                    },
+                    {
+                      "key": "granularity",
+                      "value": "daily"
+                    }
+                  ],
+                  "variable": []
+                },
+                "header": [
+                  {
+                    "description": {
+                      "content": "Added as a part of security scheme: bearer",
+                      "type": "text/plain"
+                    },
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
+                  },
+                  {
+                    "key": "Accept",
+                    "value": "application/json"
+                  }
+                ],
+                "method": "GET",
+                "body": {}
+              },
+              "status": "Unauthorized",
+              "code": 401,
+              "header": [
+                {
+                  "key": "Content-Type",
+                  "value": "application/json"
+                }
+              ],
+              "body": "{\n  \"error\": \"UNAUTHORIZED\",\n  \"message\": \"Invalid or missing bearer token.\",\n  \"statusCode\": 401\n}",
+              "cookie": [],
+              "_postman_previewlanguage": "json"
+            }
+          ],
+          "event": [],
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          }
+        }
+      ],
+      "event": []
+    }
+  ],
+  "event": [],
+  "variable": [
+    {
+      "type": "string",
+      "value": "https://api.albertsons.com",
+      "key": "baseUrl"
+    }
+  ],
+  "info": {
+    "_postman_id": "ad4ee5e7-865c-4aed-8f95-4b4383371b54",
+    "name": "Albertsons Media Collective Audiences Performance API",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "description": {
+      "content": "The Albertsons Media Collective API enables advertisers to integrate with Albertsons retail media network for campaign management and performance analytics. The API provides near-real-time access to campaign performance data, allowing advertisers to bring data into their own measurement models for analysis. Supported via the Albertsons developer portal built on Microsoft Azure API Management.\n\nContact Support:\n Name: Albertsons Media Collective",
+      "type": "text/plain"
+    }
+  }
+}

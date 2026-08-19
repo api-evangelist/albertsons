@@ -12,8 +12,16 @@ providerId: albertsons
 publisherName: Albertsons Companies, Inc.
 serviceCategory: Retail Media
 created: '2026-05-04'
-modified: '2026-05-05'
-reconciled: false
+# Provenance stamped 2026-08-11: this artifact was written by the API Evangelist
+# bulk sweep dated 2026-05-04, not harvested from the provider. See roadmap#35.
+# Corrected 2026-08-13: billingModel (Subscription / Annual / USD), the FOCUS
+# ChargeCategory and both meters (media_spend_commit, api_calls) were invented by
+# that sweep — Albertsons publishes no meter rates, no billing frequency and no
+# currency for API access. They are removed. Their presence was also feeding
+# derive-access-model.py a false `pricing: paid` label.
+method: searched
+modified: '2026-08-13'
+reconciled: true
 tags:
   - Grocery
   - Retail
@@ -22,43 +30,25 @@ tags:
   - Pharmacy
   - FinOps
   - FOCUS
-description: 'FOCUS-aligned FinOps shell for Albertsons APIs: commercial surface is the Albertsons Media
-  Collective plus CPG-partner agreements. No public meter rates; reconcile against the negotiated agreement.'
+description: >-
+  Albertsons publishes nothing FinOps-relevant about its API. There are no public
+  meter rates, no billing frequency, no currency and no charge model for API
+  access — the only public statement is the 2025-01-07 Albertsons Media Collective
+  announcement, which names no commercial terms. This file records that measured
+  absence so nothing downstream infers a billing posture from an empty surface.
 sources:
   - https://www.albertsons.com
   - https://www.albertsonsmediacollective.com
+  - https://www.albertsonscompanies.com/newsroom/press-releases/news-details/2025/Albertsons-Media-Collective-Enables-Advertisers-to-Measure-Performance-with-Greater-Ease-and-Frictionless-Access-Via-New-API-Offering-and-TransUnion-Partnership/default.aspx
   - https://focus.finops.org/focus-specification/v1-3/
-billingModel:
-  pricingCategory: Subscription
-  billingFrequency: Annual
-  billingCurrency: USD
-  chargeCategories:
-    - Purchase
-    - Adjustment
+billingModel: {}
 focusColumns:
-  ServiceName: Albertsons Partner APIs
+  ServiceName: Albertsons Media Collective API
   ServiceCategory: Retail Media
   ProviderName: Albertsons
   PublisherName: Albertsons Companies, Inc.
-  InvoiceIssuerName: Albertsons Companies, Inc.
-  BillingCurrency: USD
-  ChargeCategory: Purchase
-meters:
-  - name: media_spend_commit
-    description: Annual media-spend commitment for retail-media campaigns
-    unit: USD
-    aggregation: sum
-    dimensions:
-      - campaign
-      - brand
-  - name: api_calls
-    description: API call volume for analytics / campaign / data-collaboration endpoints (where contractually
-      metered)
-    unit: request
-    aggregation: sum
-    dimensions:
-      - api
-      - partner
+meter_count: 0
+meters: []
 principles:
   - name: Visibility
     description: Track Media Collective spend and campaign performance via Albertsons partner reporting;

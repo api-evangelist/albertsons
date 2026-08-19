@@ -1,0 +1,37 @@
+{
+  "opencollection": "1.0.0",
+  "info": {
+    "name": "Albertsons Media Collective Audiences Reporting API",
+    "version": "1.0"
+  },
+  "items": [
+    {
+      "info": {
+        "name": "Reporting",
+        "type": "folder"
+      },
+      "items": [
+        {
+          "info": {
+            "name": "Albertsons Media Collective Generate Report",
+            "type": "http"
+          },
+          "http": {
+            "method": "POST",
+            "url": "https://api.albertsons.com/reports",
+            "body": {
+              "type": "json",
+              "data": "{}"
+            },
+            "auth": {
+              "type": "bearer",
+              "token": "{{bearerToken}}"
+            }
+          },
+          "docs": "Generates a custom performance report for advertising campaigns with specified dimensions, metrics, and date ranges for export to external analytics dashboards."
+        }
+      ]
+    }
+  ],
+  "bundled": true
+}
