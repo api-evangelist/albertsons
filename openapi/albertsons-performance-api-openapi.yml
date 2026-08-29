@@ -1,4 +1,4 @@
-openapi: 3.1.0
+openapi: 3.2.0
 info:
   title: Albertsons Media Collective Audiences Performance API
   description: The Albertsons Media Collective API enables advertisers to integrate with Albertsons retail media network for campaign management and performance analytics. The API provides near-real-time access to campaign performance data, allowing advertisers to bring data into their own measurement models for analysis. Supported via the Albertsons developer portal built on Microsoft Azure API Management.
@@ -94,37 +94,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
-      type: object
-      title: Error Response
-      description: Standard error response object.
-      properties:
-        error:
-          type: string
-          description: Error code identifier.
-          example: UNAUTHORIZED
-        message:
-          type: string
-          description: Human-readable error message.
-          example: Invalid or missing bearer token.
-        statusCode:
-          type: integer
-          description: HTTP status code.
-          example: 401
-    PerformanceMetricsResponse:
-      type: object
-      title: Performance Metrics Response
-      description: Collection of performance metric data points.
-      properties:
-        metrics:
-          type: array
-          items:
-            $ref: '#/components/schemas/PerformanceMetric'
-          description: Array of performance metric data points.
-        total:
-          type: integer
-          description: Total number of metric records returned.
-          example: 31
     PerformanceMetric:
       type: object
       title: Performance Metric
@@ -166,6 +135,37 @@ components:
           format: double
           description: Click-through rate as a decimal (clicks / impressions).
           example: 0.015
+    ErrorResponse:
+      type: object
+      title: Error Response
+      description: Standard error response object.
+      properties:
+        error:
+          type: string
+          description: Error code identifier.
+          example: UNAUTHORIZED
+        message:
+          type: string
+          description: Human-readable error message.
+          example: Invalid or missing bearer token.
+        statusCode:
+          type: integer
+          description: HTTP status code.
+          example: 401
+    PerformanceMetricsResponse:
+      type: object
+      title: Performance Metrics Response
+      description: Collection of performance metric data points.
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/PerformanceMetric'
+          description: Array of performance metric data points.
+        total:
+          type: integer
+          description: Total number of metric records returned.
+          example: 31
   securitySchemes:
     bearerAuth:
       type: http
