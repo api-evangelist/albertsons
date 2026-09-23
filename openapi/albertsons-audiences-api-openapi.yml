@@ -70,6 +70,31 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    Audience:
+      type: object
+      title: Audience
+      description: An audience targeting segment based on shopper behavior.
+      properties:
+        audienceId:
+          type: string
+          description: Unique identifier of the audience segment.
+          example: aud-001
+        name:
+          type: string
+          description: Display name of the audience segment.
+          example: Organic Food Buyers
+        description:
+          type: string
+          description: Description of the audience segment criteria.
+          example: Shoppers with high organic product purchase frequency
+        size:
+          type: integer
+          description: Approximate number of shoppers in the audience segment.
+          example: 2500000
+        category:
+          type: string
+          description: Product category associated with the audience.
+          example: grocery
     AudienceListResponse:
       type: object
       title: Audience List Response
@@ -109,31 +134,6 @@ components:
           type: integer
           description: HTTP status code.
           example: 401
-    Audience:
-      type: object
-      title: Audience
-      description: An audience targeting segment based on shopper behavior.
-      properties:
-        audienceId:
-          type: string
-          description: Unique identifier of the audience segment.
-          example: aud-001
-        name:
-          type: string
-          description: Display name of the audience segment.
-          example: Organic Food Buyers
-        description:
-          type: string
-          description: Description of the audience segment criteria.
-          example: Shoppers with high organic product purchase frequency
-        size:
-          type: integer
-          description: Approximate number of shoppers in the audience segment.
-          example: 2500000
-        category:
-          type: string
-          description: Product category associated with the audience.
-          example: grocery
   securitySchemes:
     bearerAuth:
       type: http

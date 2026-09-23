@@ -1,6 +1,6 @@
 openapi: 3.2.0
 info:
-  title: Albertsons Media Collective Audiences Reporting API
+  title: Albertsons Media Collective Reporting API
   description: The Albertsons Media Collective API enables advertisers to integrate with Albertsons retail media network for campaign management and performance analytics. The API provides near-real-time access to campaign performance data, allowing advertisers to bring data into their own measurement models for analysis. Supported via the Albertsons developer portal built on Microsoft Azure API Management.
   version: '1.0'
   contact:
@@ -79,51 +79,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ReportResponse:
-      type: object
-      title: Report Response
-      description: Response containing the generated report details.
-      properties:
-        reportId:
-          type: string
-          description: Unique identifier for the generated report.
-          example: rpt-abc123
-        status:
-          type: string
-          enum:
-          - pending
-          - processing
-          - completed
-          - failed
-          description: Current status of the report generation.
-          example: completed
-        createdAt:
-          type: string
-          format: date-time
-          description: Timestamp when the report was created.
-          example: '2026-04-19T10:30:00Z'
-        downloadUrl:
-          type: string
-          format: uri
-          description: URL to download the completed report.
-          example: https://api.albertsons.com/reports/rpt-abc123/download
-    ErrorResponse:
-      type: object
-      title: Error Response
-      description: Standard error response object.
-      properties:
-        error:
-          type: string
-          description: Error code identifier.
-          example: UNAUTHORIZED
-        message:
-          type: string
-          description: Human-readable error message.
-          example: Invalid or missing bearer token.
-        statusCode:
-          type: integer
-          description: HTTP status code.
-          example: 401
     ReportRequest:
       type: object
       title: Report Request
@@ -173,6 +128,51 @@ components:
           - csv
           description: Output format for the report.
           example: json
+    ReportResponse:
+      type: object
+      title: Report Response
+      description: Response containing the generated report details.
+      properties:
+        reportId:
+          type: string
+          description: Unique identifier for the generated report.
+          example: rpt-abc123
+        status:
+          type: string
+          enum:
+          - pending
+          - processing
+          - completed
+          - failed
+          description: Current status of the report generation.
+          example: completed
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the report was created.
+          example: '2026-04-19T10:30:00Z'
+        downloadUrl:
+          type: string
+          format: uri
+          description: URL to download the completed report.
+          example: https://api.albertsons.com/reports/rpt-abc123/download
+    ErrorResponse:
+      type: object
+      title: Error Response
+      description: Standard error response object.
+      properties:
+        error:
+          type: string
+          description: Error code identifier.
+          example: UNAUTHORIZED
+        message:
+          type: string
+          description: Human-readable error message.
+          example: Invalid or missing bearer token.
+        statusCode:
+          type: integer
+          description: HTTP status code.
+          example: 401
   securitySchemes:
     bearerAuth:
       type: http
