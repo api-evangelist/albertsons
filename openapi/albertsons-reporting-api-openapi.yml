@@ -79,6 +79,34 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    ReportResponse:
+      type: object
+      title: Report Response
+      description: Response containing the generated report details.
+      properties:
+        reportId:
+          type: string
+          description: Unique identifier for the generated report.
+          example: rpt-abc123
+        status:
+          type: string
+          enum:
+          - pending
+          - processing
+          - completed
+          - failed
+          description: Current status of the report generation.
+          example: completed
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the report was created.
+          example: '2026-04-19T10:30:00Z'
+        downloadUrl:
+          type: string
+          format: uri
+          description: URL to download the completed report.
+          example: https://api.albertsons.com/reports/rpt-abc123/download
     ReportRequest:
       type: object
       title: Report Request
@@ -128,34 +156,6 @@ components:
           - csv
           description: Output format for the report.
           example: json
-    ReportResponse:
-      type: object
-      title: Report Response
-      description: Response containing the generated report details.
-      properties:
-        reportId:
-          type: string
-          description: Unique identifier for the generated report.
-          example: rpt-abc123
-        status:
-          type: string
-          enum:
-          - pending
-          - processing
-          - completed
-          - failed
-          description: Current status of the report generation.
-          example: completed
-        createdAt:
-          type: string
-          format: date-time
-          description: Timestamp when the report was created.
-          example: '2026-04-19T10:30:00Z'
-        downloadUrl:
-          type: string
-          format: uri
-          description: URL to download the completed report.
-          example: https://api.albertsons.com/reports/rpt-abc123/download
     ErrorResponse:
       type: object
       title: Error Response

@@ -95,6 +95,23 @@ components:
           type: string
           description: Product category associated with the audience.
           example: grocery
+    ErrorResponse:
+      type: object
+      title: Error Response
+      description: Standard error response object.
+      properties:
+        error:
+          type: string
+          description: Error code identifier.
+          example: UNAUTHORIZED
+        message:
+          type: string
+          description: Human-readable error message.
+          example: Invalid or missing bearer token.
+        statusCode:
+          type: integer
+          description: HTTP status code.
+          example: 401
     AudienceListResponse:
       type: object
       title: Audience List Response
@@ -117,23 +134,6 @@ components:
           type: integer
           description: Number of results skipped.
           example: 0
-    ErrorResponse:
-      type: object
-      title: Error Response
-      description: Standard error response object.
-      properties:
-        error:
-          type: string
-          description: Error code identifier.
-          example: UNAUTHORIZED
-        message:
-          type: string
-          description: Human-readable error message.
-          example: Invalid or missing bearer token.
-        statusCode:
-          type: integer
-          description: HTTP status code.
-          example: 401
   securitySchemes:
     bearerAuth:
       type: http
