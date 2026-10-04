@@ -79,23 +79,34 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    ErrorResponse:
+    ReportResponse:
       type: object
-      title: Error Response
-      description: Standard error response object.
+      title: Report Response
+      description: Response containing the generated report details.
       properties:
-        error:
+        reportId:
           type: string
-          description: Error code identifier.
-          example: UNAUTHORIZED
-        message:
+          description: Unique identifier for the generated report.
+          example: rpt-abc123
+        status:
           type: string
-          description: Human-readable error message.
-          example: Invalid or missing bearer token.
-        statusCode:
-          type: integer
-          description: HTTP status code.
-          example: 401
+          enum:
+          - pending
+          - processing
+          - completed
+          - failed
+          description: Current status of the report generation.
+          example: completed
+        createdAt:
+          type: string
+          format: date-time
+          description: Timestamp when the report was created.
+          example: '2026-04-19T10:30:00Z'
+        downloadUrl:
+          type: string
+          format: uri
+          description: URL to download the completed report.
+          example: https://api.albertsons.com/reports/rpt-abc123/download
     ReportRequest:
       type: object
       title: Report Request
@@ -145,34 +156,23 @@ components:
           - csv
           description: Output format for the report.
           example: json
-    ReportResponse:
+    ErrorResponse:
       type: object
-      title: Report Response
-      description: Response containing the generated report details.
+      title: Error Response
+      description: Standard error response object.
       properties:
-        reportId:
+        error:
           type: string
-          description: Unique identifier for the generated report.
-          example: rpt-abc123
-        status:
+          description: Error code identifier.
+          example: UNAUTHORIZED
+        message:
           type: string
-          enum:
-          - pending
-          - processing
-          - completed
-          - failed
-          description: Current status of the report generation.
-          example: completed
-        createdAt:
-          type: string
-          format: date-time
-          description: Timestamp when the report was created.
-          example: '2026-04-19T10:30:00Z'
-        downloadUrl:
-          type: string
-          format: uri
-          description: URL to download the completed report.
-          example: https://api.albertsons.com/reports/rpt-abc123/download
+          description: Human-readable error message.
+          example: Invalid or missing bearer token.
+        statusCode:
+          type: integer
+          description: HTTP status code.
+          example: 401
   securitySchemes:
     bearerAuth:
       type: http

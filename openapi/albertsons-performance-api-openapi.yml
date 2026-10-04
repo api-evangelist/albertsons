@@ -94,20 +94,6 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    PerformanceMetricsResponse:
-      type: object
-      title: Performance Metrics Response
-      description: Collection of performance metric data points.
-      properties:
-        metrics:
-          type: array
-          items:
-            $ref: '#/components/schemas/PerformanceMetric'
-          description: Array of performance metric data points.
-        total:
-          type: integer
-          description: Total number of metric records returned.
-          example: 31
     PerformanceMetric:
       type: object
       title: Performance Metric
@@ -149,6 +135,20 @@ components:
           format: double
           description: Click-through rate as a decimal (clicks / impressions).
           example: 0.015
+    PerformanceMetricsResponse:
+      type: object
+      title: Performance Metrics Response
+      description: Collection of performance metric data points.
+      properties:
+        metrics:
+          type: array
+          items:
+            $ref: '#/components/schemas/PerformanceMetric'
+          description: Array of performance metric data points.
+        total:
+          type: integer
+          description: Total number of metric records returned.
+          example: 31
     ErrorResponse:
       type: object
       title: Error Response

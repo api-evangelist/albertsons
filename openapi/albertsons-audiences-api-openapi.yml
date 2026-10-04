@@ -70,6 +70,28 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
+    AudienceListResponse:
+      type: object
+      title: Audience List Response
+      description: Paginated list of audience segments.
+      properties:
+        audiences:
+          type: array
+          items:
+            $ref: '#/components/schemas/Audience'
+          description: Array of audience segment objects.
+        total:
+          type: integer
+          description: Total number of audience segments available.
+          example: 150
+        limit:
+          type: integer
+          description: Maximum number of results returned.
+          example: 20
+        offset:
+          type: integer
+          description: Number of results skipped.
+          example: 0
     Audience:
       type: object
       title: Audience
@@ -112,28 +134,6 @@ components:
           type: integer
           description: HTTP status code.
           example: 401
-    AudienceListResponse:
-      type: object
-      title: Audience List Response
-      description: Paginated list of audience segments.
-      properties:
-        audiences:
-          type: array
-          items:
-            $ref: '#/components/schemas/Audience'
-          description: Array of audience segment objects.
-        total:
-          type: integer
-          description: Total number of audience segments available.
-          example: 150
-        limit:
-          type: integer
-          description: Maximum number of results returned.
-          example: 20
-        offset:
-          type: integer
-          description: Number of results skipped.
-          example: 0
   securitySchemes:
     bearerAuth:
       type: http
