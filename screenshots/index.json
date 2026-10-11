@@ -1,0 +1,11 @@
+[
+  {
+    "repo": "albertsons",
+    "captured_at": "2026-10-11T140809",
+    "source_url": "https://albertsons.com",
+    "source_type": "root-domain",
+    "file": "albertsons-2026-10-11T140809.png",
+    "bytes": 32210,
+    "capture": "playwright-local"
+  }
+]
