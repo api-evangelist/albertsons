@@ -70,28 +70,23 @@ paths:
         dispatcher: FALLBACK
 components:
   schemas:
-    AudienceListResponse:
+    ErrorResponse:
       type: object
-      title: Audience List Response
-      description: Paginated list of audience segments.
+      title: Error Response
+      description: Standard error response object.
       properties:
-        audiences:
-          type: array
-          items:
-            $ref: '#/components/schemas/Audience'
-          description: Array of audience segment objects.
-        total:
+        error:
+          type: string
+          description: Error code identifier.
+          example: UNAUTHORIZED
+        message:
+          type: string
+          description: Human-readable error message.
+          example: Invalid or missing bearer token.
+        statusCode:
           type: integer
-          description: Total number of audience segments available.
-          example: 150
-        limit:
-          type: integer
-          description: Maximum number of results returned.
-          example: 20
-        offset:
-          type: integer
-          description: Number of results skipped.
-          example: 0
+          description: HTTP status code.
+          example: 401
     Audience:
       type: object
       title: Audience
@@ -117,23 +112,28 @@ components:
           type: string
           description: Product category associated with the audience.
           example: grocery
-    ErrorResponse:
+    AudienceListResponse:
       type: object
-      title: Error Response
-      description: Standard error response object.
+      title: Audience List Response
+      description: Paginated list of audience segments.
       properties:
-        error:
-          type: string
-          description: Error code identifier.
-          example: UNAUTHORIZED
-        message:
-          type: string
-          description: Human-readable error message.
-          example: Invalid or missing bearer token.
-        statusCode:
+        audiences:
+          type: array
+          items:
+            $ref: '#/components/schemas/Audience'
+          description: Array of audience segment objects.
+        total:
           type: integer
-          description: HTTP status code.
-          example: 401
+          description: Total number of audience segments available.
+          example: 150
+        limit:
+          type: integer
+          description: Maximum number of results returned.
+          example: 20
+        offset:
+          type: integer
+          description: Number of results skipped.
+          example: 0
   securitySchemes:
     bearerAuth:
       type: http
