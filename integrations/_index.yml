@@ -39,3 +39,52 @@
       P856 not contradicting (Kin 2026-10-20 decision 2)
   status: not-a-workflow
   arazzo: null
+- slug: albertsons-cms-nppes-national-plan-and-provider-enumeration-system
+  label: CMS NPPES (National Plan and Provider Enumeration System)
+  partner_name: CMS NPPES (National Plan and Provider Enumeration System)
+  category: US healthcare provider NPI enumeration
+  type: register
+  channel: regulator-register
+  evidence: https://npiregistry.cms.hhs.gov/api/?version=2.1&number=1073551214
+  source: edge
+  relationship: standard-participant
+  contract_reference:
+    register: CMS NPPES NPI Registry (npiregistry.cms.hhs.gov API v2.1, NPI-2 organisations)
+    standard: National Provider Identifier (HIPAA standard unique health identifier, 45 CFR 162 Subpart D)
+    spec_file: null
+    role: npi-2-organization
+    registered_name: ALBERTSONS LLC
+    register_id: '1073551214'
+    register_country: US
+    register_state: ID
+    npi_status: A
+    enumeration_date: '2006-06-02'
+    primary_taxonomy: Pharmacy, Community/Retail Pharmacy
+    primary_taxonomy_code: 3336C0003X
+    matched_domain: albertsons.com
+    matched_by: register-name+state
+    other_registrations:
+    - '1104286848'
+    - '1104872027'
+    - '1164460309'
+    - '1275010357'
+    - '1508307653'
+    - '1528429768'
+    - '1568418077'
+    - '1669428173'
+    - '1750337267'
+    - '1750825121'
+    national_directory:
+      ndh: found
+      ndh_verification_status: complete
+      ndh_part_of: null
+    signal_note: 'regulated identity: the organisation is enumerated in NPPES (an NPI-2 is required of HIPAA covered
+      healthcare providers); exact legal name AND (an own-domain endpoint or the Wikidata HQ state); other NPIs
+      are context, never counted'
+    detected_by: sweep-us-npi-health-provider-registry.py
+    detected: '2026-10-22'
+    hq_state: ID
+    identity: wikidata Q2831861 'Albertsons' P856 https://www.albertsons.com/
+    identity_source: wikidata P856 + P159 (HQ state; labelled provenance step; Kin 2026-10-15 decision 1)
+  status: not-a-workflow
+  arazzo: null
