@@ -126,6 +126,8 @@ apis:
   - type: JSONSchema
     url: json-schema/retail-media-api-report-response-schema.json
 common:
+  - type: PostmanWorkspace
+    url: https://www.postman.com/kinlaneapi/albertsons/overview
   - type: Plans
     url: plans/albertsons-plans-pricing.yml
   - type: RateLimits
