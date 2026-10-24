@@ -1,192 +1,190 @@
 {
+  "info": {
+    "_postman_id": "84ed0867-d579-499d-a51b-b4436774606f",
+    "name": "Albertsons Media Collective Audiences API",
+    "description": "The Albertsons Media Collective API enables advertisers to integrate with Albertsons retail media network for campaign management and performance analytics. The API provides near-real-time access to campaign performance data, allowing advertisers to bring data into their own measurement models for analysis. Supported via the Albertsons developer portal built on Microsoft Azure API Management.\n\nContact Support:\n Name: Albertsons Media Collective",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:01:44.000Z",
+    "updatedAt": "2026-10-22T02:01:44.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-84ed0867-d579-499d-a51b-b4436774606f"
+  },
   "item": [
     {
-      "id": "108215d3-2809-4dac-b720-806adc83a2ec",
-      "name": "Audiences",
-      "description": {
-        "content": "Manage audience targeting segments for retail media campaigns.",
-        "type": "text/plain"
-      },
+      "name": "audiences",
       "item": [
         {
-          "id": "d17cf016-62f0-484d-8198-21005bfab1c1",
           "name": "Albertsons Media Collective List Audiences",
+          "id": "bf06b301-bf66-4e93-977b-d6cee63b5cc9",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Albertsons Media Collective List Audiences",
-            "description": {
-              "content": "Retrieves a list of audience segments available for campaign targeting on the Albertsons Media Collective, based on shopper purchase behavior and demographic data.",
-              "type": "text/plain"
-            },
-            "url": {
-              "path": [
-                "audiences"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [
+            "auth": {
+              "type": "bearer",
+              "bearer": [
                 {
-                  "disabled": false,
-                  "key": "category",
-                  "value": "<string>",
-                  "description": "Filter audiences by product category."
-                },
-                {
-                  "disabled": false,
-                  "key": "limit",
-                  "value": "20",
-                  "description": "Maximum number of audience segments to return."
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
                 }
-              ],
-              "variable": []
+              ]
             },
+            "method": "GET",
             "header": [
               {
                 "key": "Accept",
                 "value": "application/json"
               }
             ],
-            "method": "GET",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
+            "url": {
+              "raw": "{{baseUrl}}/audiences?category=<string>&limit=20",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "audiences"
+              ],
+              "query": [
                 {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
+                  "description": "Filter audiences by product category.",
+                  "key": "category",
+                  "value": "<string>"
+                },
+                {
+                  "description": "Maximum number of audience segments to return.",
+                  "key": "limit",
+                  "value": "20"
                 }
               ]
-            }
+            },
+            "description": "Retrieves a list of audience segments available for campaign targeting on the Albertsons Media Collective, based on shopper purchase behavior and demographic data."
           },
           "response": [
             {
-              "id": "9ad5b29b-f541-4d20-8bae-c539eec99a86",
+              "id": "74dfbc71-4317-40ff-b3c1-361ceb931476",
               "name": "Audience segments retrieved successfully.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "audiences"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "category",
-                      "value": "grocery"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/audiences?category=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "audiences"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter audiences by product category.",
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of audience segments to return.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"audiences\": [\n    {\n      \"audienceId\": \"aud-001\",\n      \"name\": \"Organic Food Buyers\",\n      \"description\": \"Shoppers with high organic product purchase frequency\",\n      \"size\": 2500000,\n      \"category\": \"grocery\"\n    }\n  ],\n  \"total\": 1,\n  \"limit\": 20,\n  \"offset\": 0\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"audiences\": [\n    {\n      \"audienceId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"size\": \"<integer>\",\n      \"category\": \"<string>\"\n    },\n    {\n      \"audienceId\": \"<string>\",\n      \"name\": \"<string>\",\n      \"description\": \"<string>\",\n      \"size\": \"<integer>\",\n      \"category\": \"<string>\"\n    }\n  ],\n  \"total\": \"<integer>\",\n  \"limit\": \"<integer>\",\n  \"offset\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T02:01:45.000Z",
+              "updatedAt": "2026-10-22T02:01:45.000Z",
+              "uid": "35240-74dfbc71-4317-40ff-b3c1-361ceb931476"
             },
             {
-              "id": "ac6a8057-79ca-40a0-b0a6-12298e684059",
+              "id": "5f814e79-4333-4db2-8ccf-ffa01b257b86",
               "name": "Unauthorized.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "audiences"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [
-                    {
-                      "key": "category",
-                      "value": "grocery"
-                    },
-                    {
-                      "key": "limit",
-                      "value": "20"
-                    }
-                  ],
-                  "variable": []
-                },
+                "method": "GET",
                 "header": [
-                  {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
-                  },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "GET",
-                "body": {}
+                "url": {
+                  "raw": "{{baseUrl}}/audiences?category=<string>&limit=20",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "audiences"
+                  ],
+                  "query": [
+                    {
+                      "description": "Filter audiences by product category.",
+                      "key": "category",
+                      "value": "<string>"
+                    },
+                    {
+                      "description": "Maximum number of audience segments to return.",
+                      "key": "limit",
+                      "value": "20"
+                    }
+                  ]
+                }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"UNAUTHORIZED\",\n  \"message\": \"Invalid or missing bearer token.\",\n  \"statusCode\": 401\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T02:01:45.000Z",
+              "updatedAt": "2026-10-22T02:01:45.000Z",
+              "uid": "35240-5f814e79-4333-4db2-8ccf-ffa01b257b86"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T02:01:45.000Z",
+          "updatedAt": "2026-10-22T02:01:45.000Z",
+          "uid": "35240-bf06b301-bf66-4e93-977b-d6cee63b5cc9"
         }
       ],
-      "event": []
+      "id": "087a0351-f4bf-4f44-a2d9-22e305a772a8",
+      "createdAt": "2026-10-22T02:01:45.000Z",
+      "updatedAt": "2026-10-22T02:01:45.000Z",
+      "uid": "35240-087a0351-f4bf-4f44-a2d9-22e305a772a8"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.albertsons.com",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.albertsons.com"
     }
-  ],
-  "info": {
-    "_postman_id": "29807f4e-1915-4322-ad8c-1a0d7a68e611",
-    "name": "Albertsons Media Collective Audiences API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Albertsons Media Collective API enables advertisers to integrate with Albertsons retail media network for campaign management and performance analytics. The API provides near-real-time access to campaign performance data, allowing advertisers to bring data into their own measurement models for analysis. Supported via the Albertsons developer portal built on Microsoft Azure API Management.\n\nContact Support:\n Name: Albertsons Media Collective",
-      "type": "text/plain"
-    }
-  }
+  ]
 }

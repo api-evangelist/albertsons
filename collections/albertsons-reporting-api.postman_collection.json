@@ -1,32 +1,36 @@
 {
+  "info": {
+    "_postman_id": "85ce5280-d4ff-4783-bebe-a4699d2dc0ba",
+    "name": "Albertsons Media Collective Reporting API",
+    "description": "The Albertsons Media Collective API enables advertisers to integrate with Albertsons retail media network for campaign management and performance analytics. The API provides near-real-time access to campaign performance data, allowing advertisers to bring data into their own measurement models for analysis. Supported via the Albertsons developer portal built on Microsoft Azure API Management.\n\nContact Support:\n Name: Albertsons Media Collective",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "createdAt": "2026-10-22T02:02:07.000Z",
+    "updatedAt": "2026-10-22T02:02:08.000Z",
+    "lastUpdatedBy": "35240",
+    "uid": "35240-85ce5280-d4ff-4783-bebe-a4699d2dc0ba"
+  },
   "item": [
     {
-      "id": "37263407-2e78-4954-afb7-6960344e8900",
-      "name": "Reporting",
-      "description": {
-        "content": "Generate and retrieve performance reports.",
-        "type": "text/plain"
-      },
+      "name": "reports",
       "item": [
         {
-          "id": "cd95b90e-382e-4835-8a5d-cb0141c17497",
           "name": "Albertsons Media Collective Generate Report",
+          "id": "23322674-faa9-47b5-9acf-e9b01e543290",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
           "request": {
-            "name": "Albertsons Media Collective Generate Report",
-            "description": {
-              "content": "Generates a custom performance report for advertising campaigns with specified dimensions, metrics, and date ranges for export to external analytics dashboards.",
-              "type": "text/plain"
+            "auth": {
+              "type": "bearer",
+              "bearer": [
+                {
+                  "key": "token",
+                  "value": "{{bearerToken}}",
+                  "type": "string"
+                }
+              ]
             },
-            "url": {
-              "path": [
-                "reports"
-              ],
-              "host": [
-                "{{baseUrl}}"
-              ],
-              "query": [],
-              "variable": []
-            },
+            "method": "POST",
             "header": [
               {
                 "key": "Content-Type",
@@ -37,205 +41,212 @@
                 "value": "application/json"
               }
             ],
-            "method": "POST",
-            "auth": {
-              "type": "bearer",
-              "bearer": [
-                {
-                  "key": "token",
-                  "value": "{{bearerToken}}"
-                }
-              ]
-            },
             "body": {
               "mode": "raw",
-              "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"campaignIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"format\": \"<string>\"\n}",
+              "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"campaignIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"format\": \"json\"\n}",
               "options": {
                 "raw": {
+                  "headerFamily": "json",
                   "language": "json"
                 }
               }
-            }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/reports",
+              "host": [
+                "{{baseUrl}}"
+              ],
+              "path": [
+                "reports"
+              ]
+            },
+            "description": "Generates a custom performance report for advertising campaigns with specified dimensions, metrics, and date ranges for export to external analytics dashboards."
           },
           "response": [
             {
-              "id": "4408d076-867a-4968-87b5-de4051afed5c",
+              "id": "ffd90eb4-bc23-41ba-854a-9d23dc645ce0",
               "name": "Report generated successfully.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"campaignIds\": [\n    \"500123\"\n  ],\n  \"startDate\": \"2026-03-01\",\n  \"endDate\": \"2026-03-31\",\n  \"dimensions\": [\n    \"date\",\n    \"campaign\"\n  ],\n  \"metrics\": [\n    \"impressions\",\n    \"clicks\",\n    \"roas\"\n  ],\n  \"format\": \"json\"\n}",
+                  "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"campaignIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"format\": \"json\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reports",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports"
+                  ]
                 }
               },
               "status": "OK",
               "code": 200,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"reportId\": \"rpt-abc123\",\n  \"status\": \"completed\",\n  \"createdAt\": \"2026-04-19T10:30:00Z\",\n  \"downloadUrl\": \"https://api.albertsons.com/reports/rpt-abc123/download\"\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"reportId\": \"<string>\",\n  \"status\": \"pending\",\n  \"createdAt\": \"<dateTime>\",\n  \"downloadUrl\": \"<uri>\"\n}",
+              "createdAt": "2026-10-22T02:02:08.000Z",
+              "updatedAt": "2026-10-22T02:02:08.000Z",
+              "uid": "35240-ffd90eb4-bc23-41ba-854a-9d23dc645ce0"
             },
             {
-              "id": "a92442c1-22fc-4c01-ac6c-61e5a351d878",
+              "id": "ed797a95-3e18-4828-b3ed-3619442f83cc",
               "name": "Bad request - invalid report parameters.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"campaignIds\": [\n    \"500123\"\n  ],\n  \"startDate\": \"2026-03-01\",\n  \"endDate\": \"2026-03-31\",\n  \"dimensions\": [\n    \"date\",\n    \"campaign\"\n  ],\n  \"metrics\": [\n    \"impressions\",\n    \"clicks\",\n    \"roas\"\n  ],\n  \"format\": \"json\"\n}",
+                  "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"campaignIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"format\": \"json\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reports",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports"
+                  ]
                 }
               },
               "status": "Bad Request",
               "code": 400,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"UNAUTHORIZED\",\n  \"message\": \"Invalid or missing bearer token.\",\n  \"statusCode\": 401\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T02:02:08.000Z",
+              "updatedAt": "2026-10-22T02:02:08.000Z",
+              "uid": "35240-ed797a95-3e18-4828-b3ed-3619442f83cc"
             },
             {
-              "id": "73e3c95a-0d78-4281-91b2-e2dd05a6d3c8",
+              "id": "04633946-ba4f-4386-b618-e86c9ec315fc",
               "name": "Unauthorized.",
               "originalRequest": {
-                "url": {
-                  "path": [
-                    "reports"
-                  ],
-                  "host": [
-                    "{{baseUrl}}"
-                  ],
-                  "query": [],
-                  "variable": []
-                },
+                "method": "POST",
                 "header": [
                   {
-                    "description": {
-                      "content": "Added as a part of security scheme: bearer",
-                      "type": "text/plain"
-                    },
-                    "key": "Authorization",
-                    "value": "Bearer <token>"
+                    "key": "Content-Type",
+                    "value": "application/json"
                   },
                   {
                     "key": "Accept",
                     "value": "application/json"
+                  },
+                  {
+                    "description": "Added as a part of security scheme: bearer",
+                    "key": "Authorization",
+                    "value": "Bearer <token>"
                   }
                 ],
-                "method": "POST",
                 "body": {
                   "mode": "raw",
-                  "raw": "{\n  \"campaignIds\": [\n    \"500123\"\n  ],\n  \"startDate\": \"2026-03-01\",\n  \"endDate\": \"2026-03-31\",\n  \"dimensions\": [\n    \"date\",\n    \"campaign\"\n  ],\n  \"metrics\": [\n    \"impressions\",\n    \"clicks\",\n    \"roas\"\n  ],\n  \"format\": \"json\"\n}",
+                  "raw": "{\n  \"startDate\": \"<date>\",\n  \"endDate\": \"<date>\",\n  \"campaignIds\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"dimensions\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"metrics\": [\n    \"<string>\",\n    \"<string>\"\n  ],\n  \"format\": \"json\"\n}",
                   "options": {
                     "raw": {
+                      "headerFamily": "json",
                       "language": "json"
                     }
                   }
+                },
+                "url": {
+                  "raw": "{{baseUrl}}/reports",
+                  "host": [
+                    "{{baseUrl}}"
+                  ],
+                  "path": [
+                    "reports"
+                  ]
                 }
               },
               "status": "Unauthorized",
               "code": 401,
+              "_postman_previewlanguage": "json",
               "header": [
                 {
                   "key": "Content-Type",
                   "value": "application/json"
                 }
               ],
-              "body": "{\n  \"error\": \"UNAUTHORIZED\",\n  \"message\": \"Invalid or missing bearer token.\",\n  \"statusCode\": 401\n}",
               "cookie": [],
-              "_postman_previewlanguage": "json"
+              "responseTime": null,
+              "body": "{\n  \"error\": \"<string>\",\n  \"message\": \"<string>\",\n  \"statusCode\": \"<integer>\"\n}",
+              "createdAt": "2026-10-22T02:02:08.000Z",
+              "updatedAt": "2026-10-22T02:02:08.000Z",
+              "uid": "35240-04633946-ba4f-4386-b618-e86c9ec315fc"
             }
           ],
-          "event": [],
-          "protocolProfileBehavior": {
-            "disableBodyPruning": true
-          }
+          "createdAt": "2026-10-22T02:02:08.000Z",
+          "updatedAt": "2026-10-22T02:02:08.000Z",
+          "uid": "35240-23322674-faa9-47b5-9acf-e9b01e543290"
         }
       ],
-      "event": []
+      "id": "33da2a60-3743-400b-91fa-7c4519a857c7",
+      "createdAt": "2026-10-22T02:02:08.000Z",
+      "updatedAt": "2026-10-22T02:02:08.000Z",
+      "uid": "35240-33da2a60-3743-400b-91fa-7c4519a857c7"
     }
   ],
-  "event": [],
   "variable": [
     {
-      "type": "string",
-      "value": "https://api.albertsons.com",
-      "key": "baseUrl"
+      "key": "baseUrl",
+      "value": "https://api.albertsons.com"
     }
-  ],
-  "info": {
-    "_postman_id": "8d8fe477-cec1-4635-b040-c232109fb071",
-    "name": "Albertsons Media Collective Audiences Reporting API",
-    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-    "description": {
-      "content": "The Albertsons Media Collective API enables advertisers to integrate with Albertsons retail media network for campaign management and performance analytics. The API provides near-real-time access to campaign performance data, allowing advertisers to bring data into their own measurement models for analysis. Supported via the Albertsons developer portal built on Microsoft Azure API Management.\n\nContact Support:\n Name: Albertsons Media Collective",
-      "type": "text/plain"
-    }
-  }
+  ]
 }
